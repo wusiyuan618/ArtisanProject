@@ -1,0 +1,17 @@
+package com.hjl.artisan.home.presenter
+
+import android.os.Handler
+import android.os.Message
+import java.lang.ref.WeakReference
+
+class HomeHandler(presenter: HomePresenter):Handler() {
+    private val mPresenterReference: WeakReference<HomePresenter> = WeakReference(presenter)
+
+    override fun handleMessage(msg: Message) {
+        super.handleMessage(msg)
+        val presenter = mPresenterReference.get()
+        if (presenter != null) {
+
+        }
+    }
+}
