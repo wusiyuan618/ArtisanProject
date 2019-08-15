@@ -2,12 +2,37 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:id="@+id/layout_total"
-        android:layout_height="match_parent">
-
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="tool"
-    />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <com.wusy.wusylibrary.view.TitleView
+            android:id="@+id/titleView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    <com.wusy.wusylibrary.view.CarouselView
+            android:id="@+id/carouselView"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"/>
+    <ScrollView android:layout_width="match_parent"
+                android:layout_height="match_parent">
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <com.wusy.wusylibrary.view.moduleComponents.ModuleView
+                    android:id="@+id/projectPlan"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            <com.wusy.wusylibrary.view.moduleComponents.ModuleView
+                    android:id="@+id/qualityInspection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            <com.wusy.wusylibrary.view.moduleComponents.ModuleView
+                    android:id="@+id/materialManagement"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

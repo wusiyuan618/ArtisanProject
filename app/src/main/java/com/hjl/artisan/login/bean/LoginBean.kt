@@ -1,8 +1,9 @@
 package com.hjl.artisan.login.bean
 
+import com.hjl.artisan.app.HJLBean
 import java.io.Serializable
 
-class LoginBean : Serializable {
+class LoginBean : HJLBean(),Serializable {
 
     /**
      * msg : 登录成功

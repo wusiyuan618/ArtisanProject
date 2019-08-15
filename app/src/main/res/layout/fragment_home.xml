@@ -4,6 +4,10 @@
         android:id="@+id/layout_total"
         android:layout_height="match_parent"
         android:orientation="vertical">
+    <com.wusy.wusylibrary.view.TitleView
+            android:id="@+id/titleView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     <LinearLayout
             android:background="@drawable/border"
             android:layout_margin="12dp"
@@ -11,24 +15,27 @@
             android:layout_width="match_parent"
             android:layout_height="31dp">
         <TextView
+                android:id="@+id/allLabourer"
                 android:gravity="center"
-                android:text="在册工匠数："
+                android:text=""
                 android:textColor="#999999"
                 android:textSize="12sp"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"/>
         <TextView
+                android:id="@+id/allGroup"
                 android:gravity="center"
-                android:text="在册班组:："
+                android:text=""
                 android:textColor="#999999"
                 android:textSize="12sp"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"/>
         <TextView
+                android:id="@+id/allProject"
                 android:gravity="center"
-                android:text="在册项目:："
+                android:text=""
                 android:textColor="#999999"
                 android:textSize="12sp"
                 android:layout_weight="1"
@@ -54,7 +61,7 @@
         <TextView
                 android:id="@+id/AttendanceCount"
                 android:layout_toRightOf="@id/Attendance"
-                android:text="238"
+                android:text=""
                 android:layout_marginLeft="15dp"
                 android:textSize="25sp"
                 android:textColor="@color/colorText"
@@ -71,7 +78,7 @@
                 android:layout_height="wrap_content"/>
         <TextView
                 android:id="@+id/plan"
-                android:text="计划:"
+                android:text=""
                 android:textSize="10sp"
                 android:alpha="0.4"
                 android:textColor="@color/colorText"
@@ -80,7 +87,7 @@
                 android:layout_height="wrap_content"/>
         <TextView
                 android:id="@+id/group"
-                android:text="班组:"
+                android:text=""
                 android:textSize="10sp"
                 android:alpha="0.4"
                 android:layout_marginTop="9dp"
@@ -91,7 +98,7 @@
                 android:layout_height="wrap_content"/>
         <TextView
                 android:id="@+id/project"
-                android:text="项目:"
+                android:text=""
                 android:textSize="10sp"
                 android:alpha="0.4"
                 android:layout_marginTop="9dp"
@@ -102,6 +109,7 @@
                 android:layout_height="wrap_content"/>
     </RelativeLayout>
     <LinearLayout
+            android:id="@+id/xcbLL"
             android:gravity="center_vertical"
             android:layout_margin="12dp"
             android:background="@drawable/border"
@@ -113,6 +121,7 @@
                 android:layout_width="13dp"
                 android:layout_height="13dp"/>
         <TextView
+                android:layout_marginLeft="15dp"
                 android:textColor="@color/colorText"
                 android:text="巡检表"
                 android:layout_width="wrap_content"
@@ -129,8 +138,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             <TextView
+                    android:id="@+id/xcbRedCount"
                     android:textColor="#F64F4E"
-                    android:text="1"
+                    android:text=""
                     android:textSize="20sp"
                     android:paddingBottom="10dp"
                     android:layout_width="wrap_content"
@@ -149,8 +159,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             <TextView
+                    android:id="@+id/xcbYellowCount"
                     android:textColor="#FFBF00"
-                    android:text="1"
+                    android:text=""
                     android:textSize="20sp"
                     android:paddingBottom="10dp"
                     android:layout_width="wrap_content"
@@ -170,6 +181,7 @@
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
+            android:id="@+id/scslLL"
             android:gravity="center_vertical"
             android:layout_margin="12dp"
             android:background="@drawable/border"
@@ -181,6 +193,7 @@
                 android:layout_width="13dp"
                 android:layout_height="13dp"/>
         <TextView
+                android:layout_marginLeft="15dp"
                 android:textColor="@color/colorText"
                 android:text="实测实量"
                 android:layout_width="wrap_content"
@@ -197,8 +210,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             <TextView
+                    android:id="@+id/scslRedCount"
                     android:textColor="#F64F4E"
-                    android:text="1"
+                    android:text=""
                     android:textSize="20sp"
                     android:paddingBottom="10dp"
                     android:layout_width="wrap_content"
@@ -217,8 +231,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             <TextView
+                    android:id="@+id/scslYellowCount"
                     android:textColor="#FFBF00"
-                    android:text="1"
+                    android:text=""
                     android:textSize="20sp"
                     android:paddingBottom="10dp"
                     android:layout_width="wrap_content"

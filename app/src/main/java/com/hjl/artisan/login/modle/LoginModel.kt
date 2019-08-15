@@ -22,10 +22,7 @@ class LoginModel(handler: Handler) : ILoginModel {
         OkHttpUtil.getInstance().asynGet(UrlForOkhttp.requestLoginUrl(maps["userName"].toString(),CommonUtil.strForMD5(maps["passWord"].toString()))
             , object : OkHttpUtil.ResultCallBack{
             override fun failListener(call: Call?, e: IOException?, message: String?) {
-                var msg=handler.obtainMessage()
-                msg.what=Contants.OKHTTP_REQUEST_ERROR
-                msg.obj=message
-                handler.sendMessage(msg)
+                Contants.sendMessageByHandler(handler,message)
             }
 
 
@@ -33,15 +30,9 @@ class LoginModel(handler: Handler) : ILoginModel {
                 var json=response!!.body()!!.string()
                 var bean= Gson().fromJson(json,LoginBean::class.java)
                 if(bean.status=="0"){
-                    var msg=handler.obtainMessage()
-                    msg.what=Contants.OKHTTP_REQUEST_SUCCESS
-                    msg.obj=bean
-                    handler.sendMessage(msg)
+                    Contants.sendMessageByHandler(handler,bean)
                 }else{
-                    var msg=handler.obtainMessage()
-                    msg.what=Contants.OKHTTP_REQUEST_ERROR
-                    msg.obj=bean.msg
-                    handler.sendMessage(msg)
+                    Contants.sendMessageByHandler(handler,bean.msg)
                 }
             }
         })
