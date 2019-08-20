@@ -13,10 +13,10 @@ import okhttp3.Response
 import java.io.IOException
 
 class ActualMeasurementSelectProModel() {
-    fun getProList(employeeBean: LoginBean.DataBean.ListBean.EmployeeBean,pageIndex:Int,pageSize:Int,
+    fun getProList(employeeBean: LoginBean.DataBean.ListBean.EmployeeBean,pageIndex:Int,
                    locationName:String,programName:String,handler: Handler){
         OkHttpUtil.getInstance().asynGet(UrlForOkhttp.getActualMeasurementsProgramList(
-            pageIndex,pageSize,false,
+            pageIndex,Contants.pageSize,false,
             employeeBean.comId!!,employeeBean.id!!,locationName,programName
         ),object :OkHttpUtil.ResultCallBack{
             override fun successListener(call: Call?, response: Response?) {

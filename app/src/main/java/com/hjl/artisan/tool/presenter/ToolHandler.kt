@@ -27,7 +27,8 @@ class ToolHandler(presenter:ToolPresenter) :Handler() {
                     }
                     list.add(CarouselView.CarouselBean("http://pic25.nipic.com/20121112/9252150_150552938000_2.jpg"))
                     list.add(CarouselView.CarouselBean("http://pic51.nipic.com/file/20141025/8649940_220505558734_2.jpg"))
-
+                    list.add(CarouselView.CarouselBean("http://pic25.nipic.com/20121112/9252150_150552938000_2.jpg"))
+                    list.add(CarouselView.CarouselBean("http://pic51.nipic.com/file/20141025/8649940_220505558734_2.jpg"))
                     presenter.view.initCarousel(list)
                 }
                 Contants.OKHTTP_REQUEST_ERROR->{

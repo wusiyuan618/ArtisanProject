@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="40dip">
+
+    <CheckBox
+            android:id="@+id/id_treeNode_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:button="@null"
+            android:visibility="gone"
+            android:focusable="false"
+    />
+
+    <TextView
+            android:layout_marginLeft="14dp"
+            android:id="@+id/id_treenode_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text=""
+            android:textColor="#393939"
+            android:textSize="15sp"/>
+    <TextView
+            android:id="@+id/tvFinish"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/id_treenode_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_marginRight="6dp"
+            android:textColor="#ff56d7be"
+            android:textSize="13sp"
+    />
+    <ImageView
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="12dp"
+            android:id="@+id/id_treenode_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/gengduo_spotcheck"/>
+
+</RelativeLayout>

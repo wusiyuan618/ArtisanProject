@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        android:background="@drawable/border"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="horizontal"
+            android:layout_height="42dp"
+            android:layout_width="match_parent">
+
+        <TextView
+                android:id="@+id/tvModelItem"
+                android:text=""
+                android:layout_marginLeft="12dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        <EditText
+                android:id="@+id/edModelItem"
+                android:gravity="right|center_vertical"
+                android:layout_marginRight="5dp"
+                android:background="@null"
+                android:layout_weight="1"
+                android:hint="请输入检测点检测结果"
+                android:textSize="11sp"
+                android:inputType="numberDecimal"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+        <TextView
+                android:text="/mm"
+                android:layout_marginRight="12dp"
+                android:layout_gravity="center_vertical"
+                android:textColor="#252525"
+                android:textSize="13sp"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+</LinearLayout>

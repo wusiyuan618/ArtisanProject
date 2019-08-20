@@ -29,5 +29,10 @@
         <activity android:name=".main.view.MainView"/>
         <activity android:name=".web.WebViewActivity"/>
         <activity android:name=".tool.view.ActualMeasurementSelectProView"/>
+        <activity android:name=".tool.view.ActualMeasurementSelectTableView"/>
+        <activity android:name=".tool.view.ActualMeasurementDetailView"/>
+        <activity android:name=".tool.view.ActualMeasurementCheckPointActvity"/>
+        <activity android:name=".tool.view.ActualMeasurementCheckDetailActivity"/>
+        <activity android:name=".tool.view.ActualMeasurementEndActivity"/>
     </application>
 </manifest>

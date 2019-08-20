@@ -19,6 +19,7 @@ import com.wusy.wusylibrary.util.CommonUtil
 import kotlinx.android.synthetic.main.activity_selectpro.*
 import android.view.inputmethod.EditorInfo
 import android.content.Context
+import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.inputmethod.InputMethodManager
 import com.wusy.wusylibrary.base.BaseRecyclerAdapter
@@ -26,12 +27,11 @@ import com.wusy.wusylibrary.base.BaseRecyclerAdapter
 
 class ActualMeasurementSelectProView : BaseActivity() {
     var pageIndex=0
-    var pageSize=8
     val model:ActualMeasurementSelectProModel= ActualMeasurementSelectProModel()
     var area=""
     var proName=""
     var areaList=ArrayList<String>()
-    lateinit var loginBean:LoginBean
+    private lateinit var loginBean:LoginBean
     lateinit var adapter:ActualMeasurementSelectProAdapter
     override fun getContentViewId(): Int {
         return R.layout.activity_selectpro
@@ -55,7 +55,10 @@ class ActualMeasurementSelectProView : BaseActivity() {
             }
 
             override fun onRecyclerItemClick(view: RecyclerView.ViewHolder?, position: Int) {
-//                navigateTo()
+                var bundle=Bundle()
+                bundle.putString("proId",adapter.list[position].id)
+                bundle.putString("programName",adapter.list[position].programName)
+                navigateTo(ActualMeasurementSelectTableView::class.java,bundle)
             }
 
         })
@@ -103,7 +106,7 @@ class ActualMeasurementSelectProView : BaseActivity() {
             adapter.list.clear()
         }
         if(isShowAnim) showLoadImage()
-        model.getProList(loginBean.data!!.list!![0].employee!!,pageIndex,pageSize
+        model.getProList(loginBean.data!!.list!![0].employee!!,pageIndex
             ,area,proName,handler)
     }
 

@@ -79,5 +79,22 @@ object UrlForOkhttp {
         return "${baseUrl}cgProgramApi/actualMeasurements/getProgramLocationList?" +
                 "employeeId=$employeeId&employeeType=$employeeType&comId=$comId$comParam"
     }
-
+    /**
+     * 获取实测实量表
+     */
+    fun getActualMeasurementTable(pageIndex:Int,pageSize:Int,queryCount:Boolean,comId:String,
+                                  employeeId:String,employeeType:String,programId:String):String{
+        return  "${baseUrl}cgProgramApi/actualMeasurements/getPage?" +
+                "pageIndex=$pageIndex&pageSize=$pageSize&queryCount=$queryCount&comId=$comId" +
+                "&employeeId=$employeeId&employeeType=$employeeType&programId=$programId$comParam"
+    }
+    /**
+     * 获取实测实量监测点的接口
+     */
+    fun getActuralMeasurementCheckPoint(measurementsId:String,buildingId:String,unitId:String
+                                        ,floorNumberStart:Int,floorNumberEnd:Int):String{
+        return "${baseUrl}cgProgramApi/actualMeasurements/getRoomList?" +
+                "measurementsId=$measurementsId&buildingId=$buildingId&unitId=$unitId&floorNumberStart=$floorNumberStart" +
+                "&floorNumberEnd=$floorNumberEnd$comParam"
+    }
 }

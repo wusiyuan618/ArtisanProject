@@ -12,7 +12,7 @@
                 android:textColor="@color/colorText"
                 android:textSize="15sp"
                 android:layout_marginLeft="20dp"
-                android:text="本地重庆-龙湖-重庆龙湖春森彼岸"
+                android:text=""
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         <ImageView
@@ -28,5 +28,5 @@
             android:background="#F0EFF5"
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="2dp"/>
 </RelativeLayout>

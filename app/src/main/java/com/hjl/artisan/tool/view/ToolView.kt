@@ -47,7 +47,7 @@ class ToolView :BaseMVPFragment<IToolView,ToolPresenter>(),IToolView{
 //            projectPlan.setTitle("项目计划",Color.BLACK)
 //                .showRecycelerView(context,mPresenter.getProjectPlanBtn(loginBean))
             qualityInspection.setTitle("质量检测",Color.BLACK)
-                .showRecycelerView(context,mPresenter.getQualityInspection(loginBean))
+                .showRecycelerView(context,mPresenter.getQualityInspection(loginBean),null,null)
 //            materialManagement.setTitle("材料管理",Color.BLACK)
 //                .showRecycelerView(context,mPresenter.getMaterialManagement(loginBean))
         }
