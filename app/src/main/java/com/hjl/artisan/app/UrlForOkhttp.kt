@@ -15,7 +15,7 @@ object UrlForOkhttp {
     /**
      * 返回图片url
      */
-    fun getImageURL(path:String):String{
+    fun getImageURL(path:String?):String{
         return BuildConfig.HJL_BASE_IMG_URL+path
     }
     /**
@@ -44,6 +44,19 @@ object UrlForOkhttp {
         return "${baseUrl}cgProgramApi/inspectionReport/getCountGroupByLevel?" +
                 "employeeId=$employeeId&employeeType=$employeeType&comId=$comId&programId=$programId$comParam"
     }
+    /**
+     * -------------------------------------------------
+     *                       个人中心
+     * --------------------------------------------------
+     */
+    /**
+     * 修改密码
+     * 新老密码MD5加密
+     */
+    fun requestUpdatePwd(userId:String,oldPwd:String,newPwd:String):String{
+        return "${baseUrl}cgProgramApi/user/updatePwd?appUserId=$userId&oldPwd=$oldPwd&pwd=$newPwd$comParam"
+    }
+
     /**
      * -------------------------------------------------
      *                       工具
@@ -103,4 +116,5 @@ object UrlForOkhttp {
     fun requestSubmitCheckPoint():String{
         return "${baseUrl}cgProgramApi/actualMeasurementsReportGroup/addOrUpdateList?$comParam"
     }
+
 }

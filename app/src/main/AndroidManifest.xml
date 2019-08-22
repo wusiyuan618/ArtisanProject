@@ -36,5 +36,6 @@
         <activity android:name=".tool.view.ActualMeasurementCheckPointActvity"/>
         <activity android:name=".tool.view.ActualMeasurementCheckDetailActivity"/>
         <activity android:name=".tool.view.ActualMeasurementEndActivity"/>
+        <activity android:name=".me.view.UpdatePwdActivity"/>
     </application>
 </manifest>

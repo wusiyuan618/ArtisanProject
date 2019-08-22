@@ -47,7 +47,7 @@
                 android:textSize="17sp"
                 android:gravity="center"
                 android:textColor="#FFFFFF"
-                android:background="#56D7BE"
+                android:background="@drawable/btnstyle"
                 android:layout_width="300dp"
                 android:layout_height="42dp"/>
     </LinearLayout>
