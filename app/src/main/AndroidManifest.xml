@@ -26,7 +26,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".main.view.MainView"/>
+        <activity android:name=".main.view.MainView"
+                  android:screenOrientation="portrait"
+                    android:launchMode="singleTask"/>
         <activity android:name=".web.WebViewActivity"/>
         <activity android:name=".tool.view.ActualMeasurementSelectProView"/>
         <activity android:name=".tool.view.ActualMeasurementSelectTableView"/>

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.hjl.artisan.R
+import com.hjl.artisan.app.Contants
 import com.hjl.artisan.tool.bean.ActualMeasurementCheckPointBean
 import com.hjl.artisan.tool.bean.CheckPointTreeBean
 import com.hjl.artisan.tool.presenter.CheckPointTreeListViewAdapter
@@ -15,6 +16,9 @@ class ActualMeasurementCheckDetailActivity : BaseActivity() {
     lateinit var adapter: CheckPointTreeListViewAdapter
     private val acRequestCode = 888
     private var currentNode: Node? = null
+    var flooerId=""
+    var data:ActualMeasurementCheckPointBean.DataBean.RoomListBeanX.MeasurementsBean?=null
+    var roomId=""
     override fun findView() {
     }
 
@@ -26,24 +30,29 @@ class ActualMeasurementCheckDetailActivity : BaseActivity() {
             .build()
         btnSubmit.visibility = View.GONE
         tvNavigate.text = intent.extras.getString("navigate")
-        var data =
-            intent.extras.getSerializable("data") as ActualMeasurementCheckPointBean.DataBean.RoomListBeanX.MeasurementsBean
-        createTreeList(data)
+        flooerId=intent.extras.getString("flooerId")
+        roomId = intent.extras.getString("roomId")
+        data=findMeasureBeanById(flooerId,roomId)
+        if(data!=null)
+            createTreeList(data!!)
     }
     private fun createTreeList(data:ActualMeasurementCheckPointBean.DataBean.RoomListBeanX.MeasurementsBean){
         var treeData = ArrayList<CheckPointTreeBean>()
         for (article in data.articleList!!) {
             var firstId = treeData.size + 1
             var bean = CheckPointTreeBean(firstId, 0, article.name)
+            bean.data=article.id
+            bean.qualifiendProbability=article.qualifiendProbability
             treeData.add(bean)
             for (item in article.itemList!!) {
                 var itemId = treeData.size + 1
                 var bean = CheckPointTreeBean(itemId, firstId, item.name + "(" + item.modelList!!.size + ")")
+                bean.data=item.id
                 treeData.add(bean)
                 for (mode in item.modelList!!) {
                     var modeId = treeData.size + 1
                     var bean = CheckPointTreeBean(modeId, itemId, mode.name + "[" + mode.criteria + "]mm")
-                    bean.data = mode
+                    bean.data = mode.id
                     treeData.add(bean)
                 }
             }
@@ -56,9 +65,25 @@ class ActualMeasurementCheckDetailActivity : BaseActivity() {
             currentNode = node
             if (node.level != 2) return@setOnTreeNodeClickListener
             var bundle = Bundle()
-            bundle.putSerializable(
-                "data",
-                node.data as ActualMeasurementCheckPointBean.DataBean.RoomListBeanX.MeasurementsBean.ArticleListBean.ItemListBean.ModelListBean
+            bundle.putString(
+                "flooerId",
+                flooerId
+            )
+            bundle.putString(
+                "roomId",
+                roomId
+            )
+            bundle.putString(
+                "articleId",
+                node.parent.parent.data as String
+            )
+            bundle.putString(
+                "itemId",
+                node.parent.data as String
+            )
+            bundle.putString(
+                "modeId",
+                node.data as String
             )
             bundle.putString("navigate", tvNavigate.text.toString())
             toNestActivity(bundle)
@@ -81,9 +106,30 @@ class ActualMeasurementCheckDetailActivity : BaseActivity() {
         if (acRequestCode == requestCode && resultCode == RESULT_OK) {
             var bundle = data!!.extras
             var qualifiendProbability = bundle.getFloat("qualifiendProbability")
+
             if (currentNode != null) {
-                currentNode!!.parent.parent.qualifiendProbability = qualifiendProbability
+                //更新视图数据
+                currentNode!!.qualifiendProbability = qualifiendProbability
+                currentNode!!.parent.qualifiendProbability = calcProbability( currentNode!!.parent.childrenNodes)
+                currentNode!!.parent.parent.qualifiendProbability = calcProbability( currentNode!!.parent.parent.childrenNodes)
                 adapter.notifyDataSetChanged()
+                //缓存全局数据
+                for (article
+                in this.data!!.articleList!!){
+                    if(currentNode!!.parent.parent.data==article.id){
+                        article.qualifiendProbability=calcProbability( currentNode!!.parent.parent.childrenNodes)
+                        for(item
+                        in article.itemList!!){
+                            if(item.id==currentNode!!.parent.data){
+                                item.qualifiendProbability= calcProbability( currentNode!!.parent.childrenNodes)
+                                for (model
+                                in item.modelList!!){
+                                    model.qualifiendProbability=qualifiendProbability
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -95,13 +141,29 @@ class ActualMeasurementCheckDetailActivity : BaseActivity() {
     private fun toFinish() {
         var intent = Intent()
         var bundle = Bundle()
-        bundle.putFloat("qualifiendProbability", calcProbability())
-        intent.putExtras(bundle)
-        setResult(RESULT_OK, intent)
+        if (calcProbability()!=null){
+            bundle.putFloat("qualifiendProbability", calcProbability()!!)
+            intent.putExtras(bundle)
+            setResult(RESULT_OK, intent)
+        }
         finish()
     }
-
-    private fun calcProbability(): Float {
+    /**
+     * 计算当前选中的子node的完成率
+     * 结果=每一个的完成率/n
+     */
+    private fun calcProbability(list:List<Node>): Float? {
+        var allQualiProF = 0.0f
+        var i = 0
+        for (node in list) {
+            if (node.qualifiendProbability != null) {
+                i++
+                allQualiProF += node.qualifiendProbability
+            }
+        }
+        return if (i != 0) allQualiProF / i else null
+    }
+    private fun calcProbability(): Float?{
         var allQualiProF = 0.0f
         var i = 0
         for (node in adapter.getmAllNodes()) {
@@ -110,7 +172,18 @@ class ActualMeasurementCheckDetailActivity : BaseActivity() {
                 allQualiProF += node.qualifiendProbability
             }
         }
-        return if (i != 0) allQualiProF / i else 0.0f
+        return if (i != 0) allQualiProF / i else null
     }
-
+    private fun findMeasureBeanById(flooerId:String,roomId:String):ActualMeasurementCheckPointBean.DataBean.RoomListBeanX.MeasurementsBean?{
+        for (flooer in Contants.mAcualMeasurementBean!!.data!!){
+            if(flooer.id==flooerId){
+                for (room in flooer.roomList!!){
+                    if(room.id==roomId){
+                        return room.measurements!!
+                    }
+                }
+            }
+        }
+        return null
+    }
 }

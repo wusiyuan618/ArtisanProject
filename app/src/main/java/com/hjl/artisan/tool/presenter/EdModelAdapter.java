@@ -31,6 +31,9 @@ public class EdModelAdapter extends BaseRecyclerAdapter<ModuleViewBean> {
         if(holder instanceof EdModelViewHolder){
             EdModelViewHolder moduleViewHolder= (EdModelViewHolder) holder;
             moduleViewHolder.tv.setText(getList().get(position).getTitle());
+            if(getList().get(position).getIndex()!=null){
+                moduleViewHolder.ed.setText(getList().get(position).getIndex().toString());
+            }
             moduleViewHolder.ed.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {

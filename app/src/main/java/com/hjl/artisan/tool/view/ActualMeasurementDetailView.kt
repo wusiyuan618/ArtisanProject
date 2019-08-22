@@ -19,14 +19,14 @@ import kotlin.collections.ArrayList
 
 
 class ActualMeasurementDetailView : BaseActivity() {
-    lateinit var buildPop: SelectBuildPop
-    lateinit var foolerPop: SelectFlooerPop
-    lateinit var tableBean: ActuralMeasurementTableBean.DataBean.RowsBean
-    var isReadyBuildPop = false
-    var isReadyFlooerPop = false
-    lateinit var selectBuild:ActuralMeasurementTableBean.DataBean.RowsBean.FloorLinkListBean
-    var selectStartFlooer=0
-    var selectEndFlooer=0
+    private lateinit var buildPop: SelectBuildPop
+    private lateinit var foolerPop: SelectFlooerPop
+    private lateinit var tableBean: ActuralMeasurementTableBean.DataBean.RowsBean
+    private var isReadyBuildPop = false
+    private var isReadyFlooerPop = false
+    private lateinit var selectBuild:ActuralMeasurementTableBean.DataBean.RowsBean.FloorLinkListBean
+    private var selectStartFlooer=0
+    private var selectEndFlooer=0
     override fun getContentViewId(): Int {
         return R.layout.activity_actualmeasurements_detail
     }
@@ -60,12 +60,12 @@ class ActualMeasurementDetailView : BaseActivity() {
                 return@setOnClickListener
             }
             var bundle=Bundle()
-            bundle.putString("measurementsId",tableBean.id)
-            bundle.putString("buildingId",selectBuild.buildingId)
-            bundle.putString("unitId",selectBuild.unitId)
+            bundle.putString("programName",intent.extras.getString("programName"))
             bundle.putInt("floorNumberStart",selectStartFlooer)
             bundle.putInt("floorNumberEnd",selectEndFlooer)
             bundle.putString("navigate",tvSelectBuild.text.toString().split("(")[0])
+            bundle.putSerializable("tableBean",tableBean)
+            bundle.putSerializable("selectBean",selectBuild)
             navigateTo(ActualMeasurementCheckPointActvity::class.java,bundle)
         }
     }
@@ -88,6 +88,9 @@ class ActualMeasurementDetailView : BaseActivity() {
             ImageLoaderUtil.getInstance(this).loadingImage(UrlForOkhttp.getImageURL(imgUrl!!),imgFloorPlan)
             tvFloorPlan.visibility=View.VISIBLE
             rlFloorPlan.visibility=View.VISIBLE
+        }else{
+            tvFloorPlan.visibility=View.GONE
+            rlFloorPlan.visibility=View.GONE
         }
     }
 

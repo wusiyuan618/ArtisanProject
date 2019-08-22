@@ -97,4 +97,10 @@ object UrlForOkhttp {
                 "measurementsId=$measurementsId&buildingId=$buildingId&unitId=$unitId&floorNumberStart=$floorNumberStart" +
                 "&floorNumberEnd=$floorNumberEnd$comParam"
     }
+    /**
+     * 提价实测实量的数据
+     */
+    fun requestSubmitCheckPoint():String{
+        return "${baseUrl}cgProgramApi/actualMeasurementsReportGroup/addOrUpdateList?$comParam"
+    }
 }

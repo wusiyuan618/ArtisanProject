@@ -38,6 +38,7 @@ class ActualMeasurementCheckPointBean :  HJLBean(){
         var programId: String? = null
         var pointCount: Int = 0
         var roomList: List<RoomListBeanX>? = null
+        var qualifiendProbability:Float?=null
 
         class RoomListBeanX :Serializable{
             /**
@@ -69,6 +70,7 @@ class ActualMeasurementCheckPointBean :  HJLBean(){
             var area: String? = null
             var pointCount: Int = 0
             var measurements: MeasurementsBean? = null
+            var qualifiendProbability:Float?=null
 
             class MeasurementsBean :Serializable{
                 /**
@@ -115,6 +117,7 @@ class ActualMeasurementCheckPointBean :  HJLBean(){
                     var measurementsId: String? = null
                     var name: String? = null
                     var itemList: List<ItemListBean>? = null
+                    var qualifiendProbability:Float?=null
 
                     class ItemListBean :Serializable{
                         /**
@@ -134,6 +137,7 @@ class ActualMeasurementCheckPointBean :  HJLBean(){
                         var articleId: String? = null
                         var name: String? = null
                         var modelList: List<ModelListBean>? = null
+                        var qualifiendProbability:Float?=null
 
                         class ModelListBean:Serializable {
                             /**
@@ -159,6 +163,7 @@ class ActualMeasurementCheckPointBean :  HJLBean(){
                             var pointRule: String? = null
                             var resultName: String? = null
                             var roomList: List<RoomListBean>? = null
+                            var qualifiendProbability:Float?=null
 
                             class RoomListBean :Serializable{
                                 /**
@@ -199,6 +204,7 @@ class ActualMeasurementCheckPointBean :  HJLBean(){
                                     var modelRoomId: String? = null
                                     var positionAllId: String? = null
                                     var pointList: List<PointListBean>? = null
+                                    var qualifiendProbability:Float?=null
 
                                     class PointListBean:Serializable {
                                         /**
@@ -216,6 +222,8 @@ class ActualMeasurementCheckPointBean :  HJLBean(){
                                         var id: String? = null
                                         var positionId: String? = null
                                         var name: String? = null
+                                        var pointValue:String ?= null
+                                        var qualifiendStatus:String?=null
                                     }
                                 }
                             }
