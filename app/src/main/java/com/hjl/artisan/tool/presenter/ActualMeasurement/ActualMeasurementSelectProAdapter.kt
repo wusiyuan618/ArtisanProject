@@ -1,12 +1,12 @@
-package com.hjl.artisan.tool.presenter
+package com.hjl.artisan.tool.presenter.ActualMeasurement
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.hjl.artisan.R
-import com.hjl.artisan.tool.bean.ActualMeasurementSelectProBean
-import com.hjl.artisan.tool.view.ActualMeasurementSelectProViewHolder
+import com.hjl.artisan.tool.bean.ActualMeasurement.ActualMeasurementSelectProBean
+import com.hjl.artisan.tool.view.ActualMeasurement.ActualMeasurementSelectProViewHolder
 import com.wusy.wusylibrary.base.BaseRecyclerAdapter
 
 class ActualMeasurementSelectProAdapter(context:Context) : BaseRecyclerAdapter<ActualMeasurementSelectProBean.DataBean.RowsBean>(context) {

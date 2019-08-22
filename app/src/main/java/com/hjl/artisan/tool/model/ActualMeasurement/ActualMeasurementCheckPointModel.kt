@@ -1,4 +1,4 @@
-package com.hjl.artisan.tool.model
+package com.hjl.artisan.tool.model.ActualMeasurement
 
 import android.content.Context
 import android.os.Handler
@@ -7,8 +7,8 @@ import cc.fussen.cache.Cache
 import com.gohome.pad.data.net.http.UrlForOkhttp
 import com.google.gson.Gson
 import com.hjl.artisan.app.Contants
-import com.hjl.artisan.tool.bean.ActualMeasurementCheckPointBean
-import com.hjl.artisan.tool.bean.CheckPointReportBean
+import com.hjl.artisan.tool.bean.ActualMeasurement.ActualMeasurementCheckPointBean
+import com.hjl.artisan.tool.bean.ActualMeasurement.CheckPointReportBean
 import com.wusy.wusylibrary.util.OkHttpUtil
 import okhttp3.Call
 import okhttp3.Response
@@ -23,7 +23,7 @@ class ActualMeasurementCheckPointModel(context:Context){
                     unitId + floorNumberStart + floorNumberEnd
         val bean= Cache.with(mC)
             .path(mC.cacheDir.path)
-            .getCache(index,ActualMeasurementCheckPointBean::class.java)
+            .getCache(index, ActualMeasurementCheckPointBean::class.java)
         if(bean!=null){
             val dialog: AlertDialog = AlertDialog.Builder(mC)
                 .setMessage("检查到上次测量的信息，是否使用？")
@@ -54,7 +54,8 @@ class ActualMeasurementCheckPointModel(context:Context){
         ),object : OkHttpUtil.ResultCallBack{
             override fun successListener(call: Call?, response: Response?) {
                 val json=response!!.body()!!.string()
-                val bean=Gson().fromJson(json,ActualMeasurementCheckPointBean::class.java)
+                val bean=Gson().fromJson(json,
+                    ActualMeasurementCheckPointBean::class.java)
                 if(bean.status=="0")
                     Contants.sendMessageByHandler(handler,bean)
                 else
@@ -67,8 +68,8 @@ class ActualMeasurementCheckPointModel(context:Context){
 
         })
     }
-    fun submitCheckPointData(bean: CheckPointReportBean,handler: Handler,userId:String,measurementsId:String,buildingId:String,
-                             unitId:String,floorNumberStart:Int,floorNumberEnd:Int){
+    fun submitCheckPointData(bean: CheckPointReportBean, handler: Handler, userId:String, measurementsId:String, buildingId:String,
+                             unitId:String, floorNumberStart:Int, floorNumberEnd:Int){
         var jsonStr=Gson().toJson(bean)
         OkHttpUtil.getInstance().anysPost(UrlForOkhttp.requestSubmitCheckPoint(),"admin",jsonStr,object : OkHttpUtil.ResultCallBack{
             override fun successListener(call: Call?, response: Response?) {

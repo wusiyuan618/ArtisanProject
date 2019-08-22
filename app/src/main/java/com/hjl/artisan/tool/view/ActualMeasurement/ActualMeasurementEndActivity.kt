@@ -1,4 +1,4 @@
-package com.hjl.artisan.tool.view
+package com.hjl.artisan.tool.view.ActualMeasurement
 
 import android.content.Intent
 import android.graphics.Color
@@ -7,8 +7,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.ViewGroup
 import com.hjl.artisan.R
 import com.hjl.artisan.app.Contants
-import com.hjl.artisan.tool.bean.ActualMeasurementCheckPointBean
-import com.hjl.artisan.tool.presenter.EdModelAdapter
+import com.hjl.artisan.tool.bean.ActualMeasurement.ActualMeasurementCheckPointBean
+import com.hjl.artisan.tool.presenter.ActualMeasurement.EdModelAdapter
 import com.wusy.wusylibrary.base.BaseActivity
 import com.wusy.wusylibrary.view.moduleComponents.ModuleView
 import com.wusy.wusylibrary.view.moduleComponents.ModuleViewBean
@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_actualmeasurement_end.*
 
 class ActualMeasurementEndActivity : BaseActivity() {
     var modules: ArrayList<ModuleView> = ArrayList()
-    var modelBean:ActualMeasurementCheckPointBean.DataBean.RoomListBeanX.MeasurementsBean.ArticleListBean.ItemListBean.ModelListBean?=null
+    var modelBean: ActualMeasurementCheckPointBean.DataBean.RoomListBeanX.MeasurementsBean.ArticleListBean.ItemListBean.ModelListBean?=null
     private var qualifiedCount = 0.0f
     private var measureCount = 0.0f
     override fun getContentViewId(): Int {
@@ -69,7 +69,7 @@ class ActualMeasurementEndActivity : BaseActivity() {
             finish()
         }
     }
-    private fun createView(data:ActualMeasurementCheckPointBean.DataBean.RoomListBeanX.MeasurementsBean.ArticleListBean.ItemListBean.ModelListBean){
+    private fun createView(data: ActualMeasurementCheckPointBean.DataBean.RoomListBeanX.MeasurementsBean.ArticleListBean.ItemListBean.ModelListBean){
         tvContent.text = data.name + "[" + data.criteria + "]mm"
         etv.text = "选点规则： " + data.pointRule
         for (room in data.roomList!![0].positionList!!) {
@@ -86,7 +86,8 @@ class ActualMeasurementEndActivity : BaseActivity() {
             }
             modelView.setTitle(room.name, Color.BLACK)
                 .isShowTitle(true)
-                .showRecycelerView(this, list, EdModelAdapter(this), LinearLayoutManager(this))
+                .showRecycelerView(this, list,
+                    EdModelAdapter(this), LinearLayoutManager(this))
             modules.add(modelView)
         }
     }

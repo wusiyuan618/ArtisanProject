@@ -1,12 +1,12 @@
-package com.hjl.artisan.tool.model
+package com.hjl.artisan.tool.model.ActualMeasurement
 
 import android.os.Handler
 import com.gohome.pad.data.net.http.UrlForOkhttp
 import com.google.gson.Gson
 import com.hjl.artisan.app.Contants
 import com.hjl.artisan.login.bean.LoginBean
-import com.hjl.artisan.tool.bean.ActualMeasurementSelectProBean
-import com.hjl.artisan.tool.bean.AreaBean
+import com.hjl.artisan.tool.bean.ActualMeasurement.ActualMeasurementSelectProBean
+import com.hjl.artisan.tool.bean.ActualMeasurement.AreaBean
 import com.wusy.wusylibrary.util.OkHttpUtil
 import okhttp3.Call
 import okhttp3.Response
@@ -21,7 +21,8 @@ class ActualMeasurementSelectProModel() {
         ),object :OkHttpUtil.ResultCallBack{
             override fun successListener(call: Call?, response: Response?) {
                 var json=response!!.body()!!.string()
-                var bean=Gson().fromJson(json,ActualMeasurementSelectProBean::class.java)
+                var bean=Gson().fromJson(json,
+                    ActualMeasurementSelectProBean::class.java)
                 if(bean.status=="0")
                     Contants.sendMessageByHandler(handler,bean)
                 else
@@ -38,7 +39,7 @@ class ActualMeasurementSelectProModel() {
             employeeBean.id!!,employeeBean.employeeType!!,employeeBean.comId!!),object:OkHttpUtil.ResultCallBack{
             override fun successListener(call: Call?, response: Response?) {
                 var json=response!!.body()!!.string()
-                var bean=Gson().fromJson(json,AreaBean::class.java)
+                var bean=Gson().fromJson(json, AreaBean::class.java)
                 if (bean.status=="0")
                     Contants.sendMessageByHandler(handler,bean)
                 else

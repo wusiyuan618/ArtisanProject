@@ -1,4 +1,4 @@
-package com.hjl.artisan.tool.view;
+package com.hjl.artisan.tool.view.ActualMeasurement;
 
 import android.content.Context;
 import android.view.Gravity;
@@ -7,8 +7,8 @@ import android.view.animation.Animation;
 import com.hjl.artisan.R;
 import razerdp.basepopup.BasePopupWindow;
 
-public class SelectBuildPop extends BasePopupWindow {
-    public SelectBuildPop(Context context) {
+public class SelectFlooerPop extends BasePopupWindow {
+    public SelectFlooerPop(Context context) {
         super(context);
         setBlurBackgroundEnable(true);
         setPopupGravity(Gravity.BOTTOM);
@@ -25,7 +25,7 @@ public class SelectBuildPop extends BasePopupWindow {
 
     @Override
     public View onCreateContentView() {
-        return createPopupById(R.layout.dialog_selectbuild);
+        return createPopupById(R.layout.dialog_selectfooler);
     }
 
 }

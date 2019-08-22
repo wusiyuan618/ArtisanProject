@@ -1,13 +1,13 @@
-package com.hjl.artisan.tool.view
+package com.hjl.artisan.tool.view.ActualMeasurement
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.hjl.artisan.R
 import com.hjl.artisan.app.Contants
-import com.hjl.artisan.tool.bean.ActualMeasurementCheckPointBean
-import com.hjl.artisan.tool.bean.CheckPointTreeBean
-import com.hjl.artisan.tool.presenter.CheckPointTreeListViewAdapter
+import com.hjl.artisan.tool.bean.ActualMeasurement.ActualMeasurementCheckPointBean
+import com.hjl.artisan.tool.bean.ActualMeasurement.CheckPointTreeBean
+import com.hjl.artisan.tool.presenter.ActualMeasurement.CheckPointTreeListViewAdapter
 import com.hjl.artisan.treeList.Node
 import com.wusy.wusylibrary.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_actualmeasurements_checkpoint.*
@@ -17,7 +17,7 @@ class ActualMeasurementCheckDetailActivity : BaseActivity() {
     private val acRequestCode = 888
     private var currentNode: Node? = null
     var flooerId=""
-    var data:ActualMeasurementCheckPointBean.DataBean.RoomListBeanX.MeasurementsBean?=null
+    var data: ActualMeasurementCheckPointBean.DataBean.RoomListBeanX.MeasurementsBean?=null
     var roomId=""
     override fun findView() {
     }
@@ -36,7 +36,7 @@ class ActualMeasurementCheckDetailActivity : BaseActivity() {
         if(data!=null)
             createTreeList(data!!)
     }
-    private fun createTreeList(data:ActualMeasurementCheckPointBean.DataBean.RoomListBeanX.MeasurementsBean){
+    private fun createTreeList(data: ActualMeasurementCheckPointBean.DataBean.RoomListBeanX.MeasurementsBean){
         var treeData = ArrayList<CheckPointTreeBean>()
         for (article in data.articleList!!) {
             var firstId = treeData.size + 1
@@ -46,12 +46,20 @@ class ActualMeasurementCheckDetailActivity : BaseActivity() {
             treeData.add(bean)
             for (item in article.itemList!!) {
                 var itemId = treeData.size + 1
-                var bean = CheckPointTreeBean(itemId, firstId, item.name + "(" + item.modelList!!.size + ")")
+                var bean = CheckPointTreeBean(
+                    itemId,
+                    firstId,
+                    item.name + "(" + item.modelList!!.size + ")"
+                )
                 bean.data=item.id
                 treeData.add(bean)
                 for (mode in item.modelList!!) {
                     var modeId = treeData.size + 1
-                    var bean = CheckPointTreeBean(modeId, itemId, mode.name + "[" + mode.criteria + "]mm")
+                    var bean = CheckPointTreeBean(
+                        modeId,
+                        itemId,
+                        mode.name + "[" + mode.criteria + "]mm"
+                    )
                     bean.data = mode.id
                     treeData.add(bean)
                 }
@@ -174,7 +182,7 @@ class ActualMeasurementCheckDetailActivity : BaseActivity() {
         }
         return if (i != 0) allQualiProF / i else null
     }
-    private fun findMeasureBeanById(flooerId:String,roomId:String):ActualMeasurementCheckPointBean.DataBean.RoomListBeanX.MeasurementsBean?{
+    private fun findMeasureBeanById(flooerId:String,roomId:String): ActualMeasurementCheckPointBean.DataBean.RoomListBeanX.MeasurementsBean?{
         for (flooer in Contants.mAcualMeasurementBean!!.data!!){
             if(flooer.id==flooerId){
                 for (room in flooer.roomList!!){

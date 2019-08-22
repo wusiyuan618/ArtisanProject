@@ -6,7 +6,7 @@ import com.gohome.pad.data.net.http.UrlForOkhttp
 import com.google.gson.Gson
 import com.hjl.artisan.app.Contants
 import com.hjl.artisan.login.bean.LoginBean
-import com.hjl.artisan.tool.bean.AdvertisementBean
+import com.hjl.artisan.tool.bean.ActualMeasurement.AdvertisementBean
 import com.hjl.artisan.tool.presenter.ToolHandler
 import com.wusy.wusylibrary.util.OkHttpUtil
 import com.wusy.wusylibrary.view.moduleComponents.ModuleViewBean
@@ -24,7 +24,7 @@ class ToolModel(handler:Handler) :IToolModel{
 
             override fun successListener(call: Call?, response: Response?) {
                 var json=response!!.body()!!.string()
-                var bean=Gson().fromJson(json,AdvertisementBean::class.java)
+                var bean=Gson().fromJson(json, AdvertisementBean::class.java)
                 if (bean.status=="0"){
                     Contants.sendMessageByHandler(handler,bean)
                 }else{

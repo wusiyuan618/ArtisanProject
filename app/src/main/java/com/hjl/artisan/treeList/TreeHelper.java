@@ -2,7 +2,7 @@ package com.hjl.artisan.treeList;
 
 
 import com.hjl.artisan.R;
-import com.hjl.artisan.tool.bean.CheckPointTreeBean;
+import com.hjl.artisan.tool.bean.ActualMeasurement.CheckPointTreeBean;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

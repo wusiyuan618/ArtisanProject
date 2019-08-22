@@ -4,8 +4,7 @@ import android.os.Handler
 import android.os.Message
 import com.gohome.pad.data.net.http.UrlForOkhttp
 import com.hjl.artisan.app.Contants
-import com.hjl.artisan.login.bean.LoginBean
-import com.hjl.artisan.tool.bean.AdvertisementBean
+import com.hjl.artisan.tool.bean.ActualMeasurement.AdvertisementBean
 import com.wusy.wusylibrary.view.CarouselView
 import java.lang.ref.WeakReference
 

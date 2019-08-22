@@ -1,4 +1,4 @@
-package com.hjl.artisan.tool.presenter;
+package com.hjl.artisan.tool.presenter.ActualMeasurement;
 
 import android.content.Context;
 import android.view.View;
@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.hjl.artisan.R;
-import com.hjl.artisan.tool.bean.CheckPointTreeBean;
+import com.hjl.artisan.tool.bean.ActualMeasurement.CheckPointTreeBean;
 import com.hjl.artisan.treeList.Node;
 import com.hjl.artisan.treeList.TreeListViewAdapter;
 

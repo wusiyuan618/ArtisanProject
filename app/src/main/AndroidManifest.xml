@@ -30,12 +30,12 @@
                   android:screenOrientation="portrait"
                     android:launchMode="singleTask"/>
         <activity android:name=".web.WebViewActivity"/>
-        <activity android:name=".tool.view.ActualMeasurementSelectProView"/>
-        <activity android:name=".tool.view.ActualMeasurementSelectTableView"/>
-        <activity android:name=".tool.view.ActualMeasurementDetailView"/>
-        <activity android:name=".tool.view.ActualMeasurementCheckPointActvity"/>
-        <activity android:name=".tool.view.ActualMeasurementCheckDetailActivity"/>
-        <activity android:name=".tool.view.ActualMeasurementEndActivity"/>
+        <activity android:name=".tool.view.ActualMeasurement.ActualMeasurementSelectProView"/>
+        <activity android:name=".tool.view.ActualMeasurement.ActualMeasurementSelectTableView"/>
+        <activity android:name=".tool.view.ActualMeasurement.ActualMeasurementDetailView"/>
+        <activity android:name=".tool.view.ActualMeasurement.ActualMeasurementCheckPointActvity"/>
+        <activity android:name=".tool.view.ActualMeasurement.ActualMeasurementCheckDetailActivity"/>
+        <activity android:name=".tool.view.ActualMeasurement.ActualMeasurementEndActivity"/>
         <activity android:name=".me.view.UpdatePwdActivity"/>
     </application>
 </manifest>

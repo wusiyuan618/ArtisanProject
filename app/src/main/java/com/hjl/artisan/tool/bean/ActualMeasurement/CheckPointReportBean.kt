@@ -1,4 +1,4 @@
-package com.hjl.artisan.tool.bean
+package com.hjl.artisan.tool.bean.ActualMeasurement
 
 class CheckPointReportBean {
 

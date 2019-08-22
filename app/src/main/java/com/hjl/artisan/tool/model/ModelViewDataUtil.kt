@@ -1,7 +1,7 @@
 package com.hjl.artisan.tool.model
 
 import com.hjl.artisan.R
-import com.hjl.artisan.tool.view.ActualMeasurementSelectProView
+import com.hjl.artisan.tool.view.ActualMeasurement.ActualMeasurementSelectProView
 import com.wusy.wusylibrary.view.moduleComponents.ModuleViewBean
 
 object ModelViewDataUtil {
@@ -16,7 +16,8 @@ object ModelViewDataUtil {
         zlxj.index="INSPECTION_ENTRY"
         list.add(zlxj)
 
-        var scsl=ModuleViewBean(R.mipmap.icon_spotcheck_tool,"实测实量",ActualMeasurementSelectProView::class.java)
+        var scsl=ModuleViewBean(R.mipmap.icon_spotcheck_tool,"实测实量",
+            ActualMeasurementSelectProView::class.java)
         scsl.index="SPOTCHECK_ENTRY"
         list.add(scsl)
 

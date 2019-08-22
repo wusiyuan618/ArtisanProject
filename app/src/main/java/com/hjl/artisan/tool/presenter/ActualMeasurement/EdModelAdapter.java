@@ -1,4 +1,4 @@
-package com.hjl.artisan.tool.presenter;
+package com.hjl.artisan.tool.presenter.ActualMeasurement;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,7 +7,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import com.hjl.artisan.R;
-import com.hjl.artisan.tool.view.EdModelViewHolder;
+import com.hjl.artisan.tool.view.ActualMeasurement.EdModelViewHolder;
 import com.wusy.wusylibrary.base.BaseRecyclerAdapter;
 import com.wusy.wusylibrary.view.moduleComponents.ModuleViewBean;
 

@@ -1,4 +1,4 @@
-package com.hjl.artisan.tool.bean
+package com.hjl.artisan.tool.bean.ActualMeasurement
 
 import com.hjl.artisan.app.HJLBean
 import java.io.Serializable

@@ -1,4 +1,4 @@
-package com.hjl.artisan.tool.view;
+package com.hjl.artisan.tool.view.ActualMeasurement;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

@@ -1,24 +1,21 @@
-package com.hjl.artisan.tool.view
+package com.hjl.artisan.tool.view.ActualMeasurement
 
 import android.annotation.SuppressLint
-import android.app.Dialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import android.support.v7.app.AlertDialog
-import android.widget.Toast
 import cc.fussen.cache.Cache
 import com.hjl.artisan.R
 import com.hjl.artisan.app.Contants
 import com.hjl.artisan.login.bean.LoginBean
-import com.hjl.artisan.tool.bean.ActualMeasurementCheckPointBean
-import com.hjl.artisan.tool.bean.ActuralMeasurementTableBean
-import com.hjl.artisan.tool.bean.CheckPointReportBean
-import com.hjl.artisan.tool.bean.CheckPointTreeBean
-import com.hjl.artisan.tool.model.ActualMeasurementCheckPointModel
-import com.hjl.artisan.tool.presenter.CheckPointTreeListViewAdapter
+import com.hjl.artisan.tool.bean.ActualMeasurement.ActualMeasurementCheckPointBean
+import com.hjl.artisan.tool.bean.ActualMeasurement.ActuralMeasurementTableBean
+import com.hjl.artisan.tool.bean.ActualMeasurement.CheckPointReportBean
+import com.hjl.artisan.tool.bean.ActualMeasurement.CheckPointTreeBean
+import com.hjl.artisan.tool.model.ActualMeasurement.ActualMeasurementCheckPointModel
+import com.hjl.artisan.tool.presenter.ActualMeasurement.CheckPointTreeListViewAdapter
 import com.hjl.artisan.treeList.Node
 import com.wusy.wusylibrary.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_actualmeasurements_checkpoint.*
@@ -60,6 +57,7 @@ class ActualMeasurementCheckPointActvity : BaseActivity() {
             selectBean.unitId!!, bundle.getInt("floorNumberStart"), bundle.getInt("floorNumberEnd")
         )
         btnSubmit.setOnClickListener {
+            showLoadImage()
             model.submitCheckPointData(createReportData(),
                 handler, loginBean.data!!.user!!.id!!, selectBean.measurementsId!!, selectBean.buildingId!!,
                 selectBean.unitId!!, bundle.getInt("floorNumberStart"), bundle.getInt("floorNumberEnd")
@@ -211,7 +209,7 @@ class ActualMeasurementCheckPointActvity : BaseActivity() {
         return if (i != 0) allQualiProF / i else null
     }
 
-    private fun createReportData() : CheckPointReportBean{
+    private fun createReportData() : CheckPointReportBean {
         var bean = CheckPointReportBean()
         bean.unit = selectBean.unitId
         bean.unitNumber = selectBean.unit!!.unitNumber
@@ -259,14 +257,14 @@ class ActualMeasurementCheckPointActvity : BaseActivity() {
                         var reportItemList =
                             ArrayList<CheckPointReportBean.ReportListBean.ReportArticleListBean.ReportItemListBean>()
                         for(item in article.itemList!!){
-                            var reportItemBean=CheckPointReportBean.ReportListBean.ReportArticleListBean.ReportItemListBean()
+                            var reportItemBean= CheckPointReportBean.ReportListBean.ReportArticleListBean.ReportItemListBean()
                             if(item.qualifiendProbability==null) continue
                             reportItemBean.qualifiedPercent=item.qualifiendProbability!!
                             reportItemBean.name=item.name
                             var reportModelList =
                                 ArrayList<CheckPointReportBean.ReportListBean.ReportArticleListBean.ReportItemListBean.ReportModelListBean>()
                             for(model in item.modelList!!){
-                                var reportModelBean=CheckPointReportBean.ReportListBean.ReportArticleListBean.ReportItemListBean.ReportModelListBean()
+                                var reportModelBean= CheckPointReportBean.ReportListBean.ReportArticleListBean.ReportItemListBean.ReportModelListBean()
                                 if(model.qualifiendProbability==null) continue
                                 reportModelBean.qualifiedPercent=model.qualifiendProbability!!
                                 reportModelBean.criteria=model.criteria
@@ -276,14 +274,14 @@ class ActualMeasurementCheckPointActvity : BaseActivity() {
                                 var reportPotionList =
                                     ArrayList<CheckPointReportBean.ReportListBean.ReportArticleListBean.ReportItemListBean.ReportModelListBean.PositionListBean>()
                                 for(position in model.roomList!![0].positionList!!){
-                                    var positionBean=CheckPointReportBean.ReportListBean.ReportArticleListBean.ReportItemListBean.ReportModelListBean.PositionListBean()
+                                    var positionBean= CheckPointReportBean.ReportListBean.ReportArticleListBean.ReportItemListBean.ReportModelListBean.PositionListBean()
                                     if(position.qualifiendProbability==null) continue
                                     positionBean.qualifiedPercent=position.qualifiendProbability!!
                                     positionBean.name=position.name
                                     var pointList=ArrayList<CheckPointReportBean.ReportListBean.ReportArticleListBean.ReportItemListBean.ReportModelListBean.PositionListBean.PointListBean>()
                                     for(point in position.pointList!!){
                                         if(point.qualifiendStatus==null) continue
-                                        var pointBean=CheckPointReportBean.ReportListBean.ReportArticleListBean.ReportItemListBean.ReportModelListBean.PositionListBean.PointListBean()
+                                        var pointBean= CheckPointReportBean.ReportListBean.ReportArticleListBean.ReportItemListBean.ReportModelListBean.PositionListBean.PointListBean()
                                         pointBean.name=point.name
                                         pointBean.qualifiedStatus=point.qualifiendStatus
                                         pointBean.result=point.pointValue

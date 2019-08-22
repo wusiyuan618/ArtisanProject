@@ -1,4 +1,4 @@
-package com.hjl.artisan.tool.view
+package com.hjl.artisan.tool.view.ActualMeasurement
 
 import android.annotation.SuppressLint
 import android.os.Handler
@@ -10,10 +10,10 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.hjl.artisan.R
 import com.hjl.artisan.app.Contants
 import com.hjl.artisan.login.bean.LoginBean
-import com.hjl.artisan.tool.bean.ActualMeasurementSelectProBean
-import com.hjl.artisan.tool.bean.AreaBean
-import com.hjl.artisan.tool.model.ActualMeasurementSelectProModel
-import com.hjl.artisan.tool.presenter.ActualMeasurementSelectProAdapter
+import com.hjl.artisan.tool.bean.ActualMeasurement.ActualMeasurementSelectProBean
+import com.hjl.artisan.tool.bean.ActualMeasurement.AreaBean
+import com.hjl.artisan.tool.model.ActualMeasurement.ActualMeasurementSelectProModel
+import com.hjl.artisan.tool.presenter.ActualMeasurement.ActualMeasurementSelectProAdapter
 import com.wusy.wusylibrary.base.BaseActivity
 import com.wusy.wusylibrary.util.CommonUtil
 import kotlinx.android.synthetic.main.activity_selectpro.*
@@ -27,12 +27,13 @@ import com.wusy.wusylibrary.base.BaseRecyclerAdapter
 
 class ActualMeasurementSelectProView : BaseActivity() {
     var pageIndex=0
-    val model:ActualMeasurementSelectProModel= ActualMeasurementSelectProModel()
+    val model: ActualMeasurementSelectProModel =
+        ActualMeasurementSelectProModel()
     var area=""
     var proName=""
     var areaList=ArrayList<String>()
     private lateinit var loginBean:LoginBean
-    lateinit var adapter:ActualMeasurementSelectProAdapter
+    lateinit var adapter: ActualMeasurementSelectProAdapter
     override fun getContentViewId(): Int {
         return R.layout.activity_selectpro
     }
@@ -49,7 +50,7 @@ class ActualMeasurementSelectProView : BaseActivity() {
             .path(cacheDir.path)
             .getCache("LoginBean", LoginBean::class.java)
         model.getArea(loginBean.data!!.list!![0].employee!!,handler)
-        adapter=ActualMeasurementSelectProAdapter(this)
+        adapter= ActualMeasurementSelectProAdapter(this)
         adapter.setOnRecyclerItemClickLitener(object:BaseRecyclerAdapter.onRecyclerItemClickLitener{
             override fun onRecyclerItemLongClick(view: RecyclerView.ViewHolder?, position: Int) {
             }
@@ -120,12 +121,12 @@ class ActualMeasurementSelectProView : BaseActivity() {
                 }
                 Contants.OKHTTP_REQUEST_SUCCESS->{
                     when(msg.obj){
-                        is AreaBean->{
+                        is AreaBean ->{
                             var bean = msg.obj as AreaBean
                             areaList=bean.data as ArrayList<String>
                             return
                         }
-                        is ActualMeasurementSelectProBean->{
+                        is ActualMeasurementSelectProBean ->{
                             var bean=msg.obj as ActualMeasurementSelectProBean
                             adapter.list.addAll((bean.data!!.rows) as ArrayList)
                             adapter.notifyDataSetChanged()

@@ -1,11 +1,7 @@
 package com.hjl.artisan.app
 
 import android.os.Handler
-import com.hjl.artisan.home.presenter.HomeHandler
-import com.hjl.artisan.tool.bean.ActualMeasurementCheckPointBean
-import com.hjl.artisan.tool.bean.CheckPointTreeBean
-import java.util.*
-import kotlin.collections.ArrayList
+import com.hjl.artisan.tool.bean.ActualMeasurement.ActualMeasurementCheckPointBean
 
 object Contants {
     const val OKHTTP_REQUEST_SUCCESS=0
@@ -34,5 +30,5 @@ object Contants {
     /**
      * 实测实量数据存储
      */
-    var mAcualMeasurementBean:ActualMeasurementCheckPointBean?=null
+    var mAcualMeasurementBean: ActualMeasurementCheckPointBean?=null
 }

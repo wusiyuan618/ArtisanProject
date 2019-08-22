@@ -1,4 +1,4 @@
-package com.hjl.artisan.tool.view
+package com.hjl.artisan.tool.view.ActualMeasurement
 
 import android.os.Bundle
 import android.view.View
@@ -10,7 +10,7 @@ import com.wusy.wusylibrary.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_actualmeasurements_detail.*
 import com.hjl.artisan.R
 import com.hjl.artisan.login.bean.LoginBean
-import com.hjl.artisan.tool.bean.ActuralMeasurementTableBean
+import com.hjl.artisan.tool.bean.ActualMeasurement.ActuralMeasurementTableBean
 import com.wusy.wusylibrary.util.CommonUtil
 import com.wusy.wusylibrary.util.ImageLoaderUtil
 import java.text.SimpleDateFormat
@@ -24,7 +24,7 @@ class ActualMeasurementDetailView : BaseActivity() {
     private lateinit var tableBean: ActuralMeasurementTableBean.DataBean.RowsBean
     private var isReadyBuildPop = false
     private var isReadyFlooerPop = false
-    private lateinit var selectBuild:ActuralMeasurementTableBean.DataBean.RowsBean.FloorLinkListBean
+    private lateinit var selectBuild: ActuralMeasurementTableBean.DataBean.RowsBean.FloorLinkListBean
     private var selectStartFlooer=0
     private var selectEndFlooer=0
     override fun getContentViewId(): Int {

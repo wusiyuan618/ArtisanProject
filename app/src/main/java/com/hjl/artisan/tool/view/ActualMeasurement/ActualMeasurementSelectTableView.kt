@@ -1,4 +1,4 @@
-package com.hjl.artisan.tool.view
+package com.hjl.artisan.tool.view.ActualMeasurement
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -10,9 +10,9 @@ import cc.fussen.cache.Cache
 import com.hjl.artisan.R
 import com.hjl.artisan.app.Contants
 import com.hjl.artisan.login.bean.LoginBean
-import com.hjl.artisan.tool.bean.ActuralMeasurementTableBean
-import com.hjl.artisan.tool.model.ActualMeasurementSelectTableModel
-import com.hjl.artisan.tool.presenter.ActualMeasurementSelectTableAdapter
+import com.hjl.artisan.tool.bean.ActualMeasurement.ActuralMeasurementTableBean
+import com.hjl.artisan.tool.model.ActualMeasurement.ActualMeasurementSelectTableModel
+import com.hjl.artisan.tool.presenter.ActualMeasurement.ActualMeasurementSelectTableAdapter
 import com.wusy.wusylibrary.base.BaseActivity
 import com.wusy.wusylibrary.base.BaseRecyclerAdapter
 import com.wusy.wusylibrary.util.CommonUtil
@@ -21,7 +21,8 @@ import kotlinx.android.synthetic.main.activity_actualmeasurements_list.*
 class ActualMeasurementSelectTableView : BaseActivity() {
     var pageIndex=0
     var proId=""
-    val model:ActualMeasurementSelectTableModel= ActualMeasurementSelectTableModel()
+    val model: ActualMeasurementSelectTableModel =
+        ActualMeasurementSelectTableModel()
     private lateinit var loginBean:LoginBean
     lateinit var adapter: ActualMeasurementSelectTableAdapter
 
@@ -35,7 +36,7 @@ class ActualMeasurementSelectTableView : BaseActivity() {
                 }
                 Contants.OKHTTP_REQUEST_SUCCESS->{
                     when(msg.obj){
-                        is ActuralMeasurementTableBean->{
+                        is ActuralMeasurementTableBean ->{
                             var bean=msg.obj as ActuralMeasurementTableBean
                             adapter.list.addAll((bean.data!!.rows) as ArrayList)
                             adapter.notifyDataSetChanged()

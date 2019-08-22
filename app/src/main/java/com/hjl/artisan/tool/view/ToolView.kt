@@ -7,7 +7,7 @@ import android.view.View
 import cc.fussen.cache.Cache
 import com.hjl.artisan.R
 import com.hjl.artisan.login.bean.LoginBean
-import com.hjl.artisan.tool.bean.AdvertisementBean
+import com.hjl.artisan.tool.bean.ActualMeasurement.AdvertisementBean
 import com.hjl.artisan.tool.presenter.ToolPresenter
 import com.hjl.artisan.web.WebViewActivity
 import com.wusy.wusylibrary.base.BaseMVPFragment
@@ -22,7 +22,7 @@ class ToolView :BaseMVPFragment<IToolView,ToolPresenter>(),IToolView{
         carouselView.setOnImageClickListener {
             if(it.data!=null){
                 var intent=Intent(context,WebViewActivity::class.java)
-                var url=(it.data as com.hjl.artisan.tool.bean.AdvertisementBean.DataBean).url
+                var url=(it.data as AdvertisementBean.DataBean).url
                 intent.putExtra("url",url)
                 if(!CommonUtil.isNull(url)) startActivity(intent)
                 else showToast("没有更多内容了")

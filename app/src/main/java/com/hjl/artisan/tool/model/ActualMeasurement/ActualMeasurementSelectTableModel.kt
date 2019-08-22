@@ -1,11 +1,11 @@
-package com.hjl.artisan.tool.model
+package com.hjl.artisan.tool.model.ActualMeasurement
 
 import android.os.Handler
 import com.gohome.pad.data.net.http.UrlForOkhttp
 import com.google.gson.Gson
 import com.hjl.artisan.app.Contants
 import com.hjl.artisan.login.bean.LoginBean
-import com.hjl.artisan.tool.bean.ActuralMeasurementTableBean
+import com.hjl.artisan.tool.bean.ActualMeasurement.ActuralMeasurementTableBean
 import com.wusy.wusylibrary.util.OkHttpUtil
 import okhttp3.Call
 import okhttp3.Response
