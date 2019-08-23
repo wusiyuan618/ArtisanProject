@@ -69,7 +69,7 @@
                 app:contentTextColor="@color/gray"
                 app:contentTextSize="14sp"
                 app:expandDrawable="@drawable/icon_green_arrow_down"
-                app:maxCollapsedLines="5"
+                app:maxCollapsedLines="2"
                 app:textCollapse="@string/collapse"
                 app:textExpand="@string/expand"/>
         <View
@@ -82,6 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         <Button
+                android:layout_marginBottom="20dp"
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/btnSubmit"
                 android:layout_marginTop="30dp"

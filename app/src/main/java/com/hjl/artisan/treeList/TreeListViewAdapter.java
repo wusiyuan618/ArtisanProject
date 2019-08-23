@@ -123,7 +123,6 @@ public abstract class TreeListViewAdapter<T> extends BaseAdapter {
 		convertView = getConvertView(node, position, convertView, parent);
 		// 设置内边距
 		convertView.setPadding(node.getLevel() * 50, 3, 3, 3);
-
 		return convertView;
 	}
 

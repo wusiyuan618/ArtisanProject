@@ -7,6 +7,7 @@ import com.hjl.artisan.main.presenter.MainPresenter
 import com.wusy.wusylibrary.base.BaseMVPActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import android.content.Intent
+import android.graphics.Color
 import java.util.*
 
 
@@ -33,6 +34,7 @@ class MainView : BaseMVPActivity<IMainView, MainPresenter>(), IMainView {
             supportFragmentManager,
             R.id.fragmentView
         )
+        bottomSelectView.setBackgroundColor(Color.WHITE)
         timer = Timer()//用于退出键监听的二次点击退出功能
 
     }

@@ -6,4 +6,6 @@
     <color name="colorText">#333333</color>
     <color name="colorTextSelect">#56D7BE</color>
     <color name="wheelNormalItem">#DFD5D5</color>
+    <color name="selectColor">#56D7BE</color>
+    <color name="normalColor">#8C8C8C</color>
 </resources>

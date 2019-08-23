@@ -106,6 +106,7 @@
         </RelativeLayout>
         <View
                 android:background="#f0eff5"
+                android:layout_marginLeft="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"/>
         <RelativeLayout
@@ -142,6 +143,7 @@
         </RelativeLayout>
         <View
                 android:background="#f0eff5"
+                android:layout_marginLeft="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"/>
         <Button

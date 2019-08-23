@@ -54,7 +54,7 @@ class MeView : BaseMVPFragment<IMeView, MePresenter>(), IMeView{
             .cacheOnDisk(true)
             .bitmapConfig(Bitmap.Config.RGB_565)
             .build()
-        ImageLoaderUtil.getInstance(context).loadingImage(UrlForOkhttp.getImageURL(loginBean.data!!.list!![0].employee!!.headPortrait),imgUser)
+        ImageLoaderUtil.getInstance(context).loadingImage(UrlForOkhttp.getImageURL(loginBean.data!!.list!![0].employee!!.headPortrait),imgUser,options)
         rlLoginOut.setOnClickListener {
             var dialog: AlertDialog = AlertDialog.Builder(context!!)
                 .setMessage("确定要退出登录吗")
