@@ -56,7 +56,41 @@ object UrlForOkhttp {
     fun requestUpdatePwd(userId:String,oldPwd:String,newPwd:String):String{
         return "${baseUrl}cgProgramApi/user/updatePwd?appUserId=$userId&oldPwd=$oldPwd&pwd=$newPwd$comParam"
     }
+    /**
+     *  获取新消息数
+     */
+    fun getNewMessageCount(employeeId:String,comId:String):String{
+        return "${baseUrl}cgProgramApi/msg/getMsgTypeCount?employeeId=$employeeId&comId=$comId$comParam"
+    }
+    /**
+     * 获取申请列表
+     */
+    fun getMessageList(employeeId:String,pageIndex:Int,pageSize:Int,comId:String,msgType:String):String{
+        return "${baseUrl}cgProgramApi/msg/getPage?employeeId=$employeeId&comId=$comId&pageIndex=$pageIndex" +
+                "&pageSize=$pageSize&msgType=$msgType&queryCount=true$comParam"
+    }
+    /**
+     *项目劳工审核
+     */
+    fun requestCheckLabourer():String{
+        return "${baseUrl}cgProgramApi/program/checkLabourer?$comParam"
+    }
+    /**
+     * 未打卡详情
+     */
+    fun getNotSignDeatailList(pageIndex:Int,pageSize: Int,programId:String,comId:String,searchKey:String,groupTime:String):String{
+        var search=if(CommonUtil.isNull(searchKey)) "" else "&searchKey=$searchKey"
+        return "${baseUrl}cgProgramApi/programOnlineLabourer/getNotSignPage?" +
+                "&pageIndex=$pageIndex&pageSize=$pageSize&programId=$programId" +
+                "&pageSize=$pageSize&comId=$comId&groupTime=$groupTime$search$comParam&queryCount=true"
+    }
 
+    /**
+     * 修改消息为已处理
+     */
+    fun requestUpdateDealStatus():String{
+        return "${baseUrl}cgProgramApi/msg/updateDealStatus?$comParam"
+    }
     /**
      * -------------------------------------------------
      *                       工具
@@ -106,7 +140,7 @@ object UrlForOkhttp {
      */
     fun getActuralMeasurementCheckPoint(measurementsId:String,buildingId:String,unitId:String
                                         ,floorNumberStart:Int,floorNumberEnd:Int):String{
-        return "${baseUrl}cgProgramApi/actualMeasurements/getRoomList?" +
+        return "${baseUrl}cgProgramApi/actualMeasurements/getRoomListApp?" +
                 "measurementsId=$measurementsId&buildingId=$buildingId&unitId=$unitId&floorNumberStart=$floorNumberStart" +
                 "&floorNumberEnd=$floorNumberEnd$comParam"
     }

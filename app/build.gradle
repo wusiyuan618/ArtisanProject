@@ -30,8 +30,8 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "HJL_BASE_URL", "\"http://www.hjlapp.com/\"")
-            buildConfigField("String", "HJL_BASE_IMG_URL", "\"http://www.hjlapp.com/\"")
+            buildConfigField("String", "HJL_BASE_URL", "\"https://www.hjlapp.com/\"")
+            buildConfigField("String", "HJL_BASE_IMG_URL", "\"https://www.hjlapp.com/\"")
             signingConfig signingConfigs.signConfig // 配置debug包的签名
             debuggable true
 

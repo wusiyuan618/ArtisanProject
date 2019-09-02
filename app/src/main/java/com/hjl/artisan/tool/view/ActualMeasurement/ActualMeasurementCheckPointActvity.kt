@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import android.support.v7.app.AlertDialog
+import android.util.Log
 import cc.fussen.cache.Cache
 import com.hjl.artisan.R
 import com.hjl.artisan.app.Contants
@@ -75,8 +76,9 @@ class ActualMeasurementCheckPointActvity : BaseActivity() {
             .setNegativeButton("保存") { dialog, _ ->
                 //以用户id、measurementsId、buildingId、、unitId、楼宇做为缓存标识
                 var index =
-                    loginBean.data!!.user!!.id + bundle.getString("measurementsId") + bundle.getString("buildingId") +
-                            bundle.getString("unitId") + bundle.getInt("floorNumberStart") + bundle.getInt("floorNumberEnd")
+                    loginBean.data!!.user!!.id + selectBean.measurementsId!! + selectBean.buildingId!! +
+                            selectBean.unitId!! + bundle.getInt("floorNumberStart") + bundle.getInt("floorNumberEnd")
+                Log.i("wsy","保存的标识$index")
                 Cache.with(this)
                     .path(cacheDir.path)
                     .saveCache(index, Contants.mAcualMeasurementBean)
@@ -112,7 +114,8 @@ class ActualMeasurementCheckPointActvity : BaseActivity() {
                     finish()
                 }
                 1002->{
-                    showToast("提交失败")
+                    showToast("网络错误，提交失败")
+
                 }
             }
             hideLoadImage()

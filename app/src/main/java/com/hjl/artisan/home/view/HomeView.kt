@@ -58,17 +58,17 @@ class HomeView : BaseMVPFragment<IHomeView,HomePresenter>(),IHomeView{
             .path(activity!!.cacheDir.path)
             .getCache("LoginBean", LoginBean::class.java)
         if(!CommonUtil.isNull(loginBean)) {
-            titleView.setTitle(loginBean.data!!.list!![0].company!!.communityName).build()
+            titleView.setTitle(loginBean.data?.list!![0].company?.communityName).build()
             showLoadImage()
-            mPresenter.getActualMeasurementsReportCount(loginBean.data!!.list!![0].employee!!.id.toString(),
-                loginBean.data!!.list!![0].employee!!.employeeType.toString(),
-                loginBean.data!!.list!![0].employee!!.comId.toString(),"")
-            mPresenter.getInspectionReportCount(loginBean.data!!.list!![0].employee!!.id.toString(),
-                loginBean.data!!.list!![0].employee!!.employeeType.toString(),
-                loginBean.data!!.list!![0].employee!!.comId.toString(),"")
-            mPresenter.getProgramAttendanceSummaryIndexTop(loginBean.data!!.list!![0].employee!!.id.toString(),
-                loginBean.data!!.list!![0].employee!!.employeeType.toString(),
-                loginBean.data!!.list!![0].employee!!.comId.toString(),"")
+            mPresenter.getActualMeasurementsReportCount(loginBean.data?.list!![0].employee?.id.toString(),
+                loginBean.data?.list!![0].employee?.employeeType.toString(),
+                loginBean.data?.list!![0].employee?.comId.toString(),"")
+            mPresenter.getInspectionReportCount(loginBean.data?.list!![0].employee?.id.toString(),
+                loginBean.data?.list!![0].employee?.employeeType.toString(),
+                loginBean.data?.list!![0].employee?.comId.toString(),"")
+            mPresenter.getProgramAttendanceSummaryIndexTop(loginBean.data?.list!![0].employee?.id.toString(),
+                loginBean.data?.list!![0].employee?.employeeType.toString(),
+                loginBean.data?.list!![0].employee?.comId.toString(),"")
         }
     }
 
@@ -84,8 +84,8 @@ class HomeView : BaseMVPFragment<IHomeView,HomePresenter>(),IHomeView{
         titleView=view!!.findViewById(R.id.titleView)
     }
 
-    override fun getmContext(): Context {
-        return context!!
+    override fun getmContext(): Context? {
+        return context
     }
 
 

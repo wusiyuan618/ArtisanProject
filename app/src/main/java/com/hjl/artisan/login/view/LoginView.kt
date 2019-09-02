@@ -55,7 +55,7 @@ class LoginView : BaseMVPActivity<ILoginView, LoginPresenter>(), ILoginView {
     }
 
     override fun saveLoginInfo(bean: LoginBean) {
-        bean.data!!.user!!.password=ed_passWord.text.toString()
+        bean.data?.user?.password=ed_passWord.text.toString()
         Cache.with(this)
             .path(cacheDir.path)
             .saveCache("LoginBean", bean)
@@ -66,8 +66,8 @@ class LoginView : BaseMVPActivity<ILoginView, LoginPresenter>(), ILoginView {
             .path(cacheDir.path)
             .getCache("LoginBean", LoginBean::class.java)
         if(!CommonUtil.isNull(loginBean)) {
-            ed_userName.setText(loginBean.data!!.user!!.phoneNumber)
-            ed_passWord.setText(loginBean.data!!.user!!.password)
+            ed_userName.setText(loginBean.data?.user?.phoneNumber ?: "")
+            ed_passWord.setText(loginBean.data?.user?.password?:"")
         }
         login()
     }

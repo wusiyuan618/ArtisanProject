@@ -14,7 +14,7 @@ object ModelViewDataUtil {
 
         var zlxj=ModuleViewBean(R.mipmap.icon_quality_tool,"质量巡检",null)
         zlxj.index="INSPECTION_ENTRY"
-        list.add(zlxj)
+//        list.add(zlxj)
 
         var scsl=ModuleViewBean(R.mipmap.icon_spotcheck_tool,"实测实量",
             ActualMeasurementSelectProView::class.java)

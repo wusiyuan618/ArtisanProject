@@ -37,5 +37,10 @@
         <activity android:name=".tool.view.ActualMeasurement.ActualMeasurementCheckDetailActivity"/>
         <activity android:name=".tool.view.ActualMeasurement.ActualMeasurementEndActivity"/>
         <activity android:name=".me.view.UpdatePwdActivity"/>
+        <activity android:name=".me.view.MessageActivity"/>
+        <activity android:name=".me.view.MessageApplyActivity"/>
+        <activity android:name=".me.view.MessageNotSignActivity"/>
+        <activity android:name=".me.view.NotSignDetailActivity"/>
+        <activity android:name=".me.view.MessageExceptionActivity"/>
     </application>
 </manifest>

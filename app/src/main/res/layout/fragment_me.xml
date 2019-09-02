@@ -27,6 +27,41 @@
                 android:layout_height="wrap_content"/>
     </LinearLayout>
     <RelativeLayout
+            android:id="@+id/rlMsg"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+        <TextView
+                android:id="@+id/tvMsg"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:textSize="15sp"
+                android:textColor="@color/colorText"
+                android:text="消息中心"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <TextView
+                android:id="@+id/tvMsgCount"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="11dp"
+                android:textSize="13sp"
+                android:layout_toRightOf="@id/tvMsg"
+                android:textColor="#E01A21"
+                android:text=""
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <ImageView
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="12dp"
+                android:src="@mipmap/gengduo_spotcheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </RelativeLayout>
+    <View
+            android:background="#F0EFF5"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+    <RelativeLayout
             android:id="@+id/rlUpdatePwd"
             android:layout_width="match_parent"
             android:layout_height="50dp">
@@ -47,7 +82,7 @@
                     android:layout_height="wrap_content"/>
     </RelativeLayout>
     <View
-            android:background="#fff0eff5"
+            android:background="#F0EFF5"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
     <RelativeLayout
@@ -71,7 +106,7 @@
                 android:layout_height="wrap_content"/>
     </RelativeLayout>
     <View
-            android:background="#fff0eff5"
+            android:background="#F0EFF5"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
 </LinearLayout>

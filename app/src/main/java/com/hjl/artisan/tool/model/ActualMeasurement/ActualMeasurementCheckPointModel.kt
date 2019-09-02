@@ -3,6 +3,7 @@ package com.hjl.artisan.tool.model.ActualMeasurement
 import android.content.Context
 import android.os.Handler
 import android.support.v7.app.AlertDialog
+import android.util.Log
 import cc.fussen.cache.Cache
 import com.gohome.pad.data.net.http.UrlForOkhttp
 import com.google.gson.Gson
@@ -12,8 +13,10 @@ import com.hjl.artisan.tool.bean.ActualMeasurement.CheckPointReportBean
 import com.wusy.wusylibrary.util.OkHttpUtil
 import okhttp3.Call
 import okhttp3.Response
+import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
+import java.lang.Exception
 
 class ActualMeasurementCheckPointModel(context:Context){
     var mC=context
@@ -24,6 +27,7 @@ class ActualMeasurementCheckPointModel(context:Context){
         val bean= Cache.with(mC)
             .path(mC.cacheDir.path)
             .getCache(index, ActualMeasurementCheckPointBean::class.java)
+        Log.i("wsy","获取的标识$index")
         if(bean!=null){
             val dialog: AlertDialog = AlertDialog.Builder(mC)
                 .setMessage("检查到上次测量的信息，是否使用？")
@@ -53,8 +57,25 @@ class ActualMeasurementCheckPointModel(context:Context){
             measurementsId,buildingId,unitId,floorNumberStart,floorNumberEnd
         ),object : OkHttpUtil.ResultCallBack{
             override fun successListener(call: Call?, response: Response?) {
-                val json=response!!.body()!!.string()
-                val bean=Gson().fromJson(json,
+                var jsonStr=response!!.body()!!.string()
+                var jo=JSONObject(jsonStr)
+                var flooers=jo.getJSONObject("data").getJSONArray("floorList")
+                var actualMeasurementsMap=jo.getJSONObject("data").getJSONObject("actualMeasurementsMap")
+                for(i in 0 until flooers.length()){
+                    for (j in 0 until flooers.getJSONObject(i).getJSONArray("roomList").length()){
+                        var room=flooers.getJSONObject(i).getJSONArray("roomList").getJSONObject(j)
+                        var roomAllId=room.getString("roomAllId")
+                        room.put("measurements",actualMeasurementsMap.get(roomAllId))
+                    }
+                }
+                jo.getJSONObject("data").remove("actualMeasurementsMap")
+                //构建和之前接口一样的json串
+                var joNow=JSONObject()
+                joNow.put("status","0")
+                joNow.put("msg","成功")
+                joNow.put("data",flooers)
+                Log.i("wsy",joNow.toString())
+                val bean=Gson().fromJson(joNow.toString(),
                     ActualMeasurementCheckPointBean::class.java)
                 if(bean.status=="0")
                     Contants.sendMessageByHandler(handler,bean)
@@ -73,16 +94,20 @@ class ActualMeasurementCheckPointModel(context:Context){
         var jsonStr=Gson().toJson(bean)
         OkHttpUtil.getInstance().anysPost(UrlForOkhttp.requestSubmitCheckPoint(),"admin",jsonStr,object : OkHttpUtil.ResultCallBack{
             override fun successListener(call: Call?, response: Response?) {
-                var json=response!!.body()!!.string()
-                var jo=JSONObject(json)
-                if(jo.getString("status")=="0"){
-                    val index = userId + measurementsId + buildingId +
-                            unitId + floorNumberStart + floorNumberEnd
-                    Cache.with(mC)
-                        .path(mC.cacheDir.path)
-                        .remove(index)
-                    handler.sendEmptyMessage(1001)
-                }else{
+                try{
+                    var json=response!!.body()!!.string()
+                    var jo=JSONObject(json)
+                    if(jo.getString("status")=="0"){
+                        val index = userId + measurementsId + buildingId +
+                                unitId + floorNumberStart + floorNumberEnd
+                        Cache.with(mC)
+                            .path(mC.cacheDir.path)
+                            .remove(index)
+                        handler.sendEmptyMessage(1001)
+                    }else{
+                        handler.sendEmptyMessage(1002)
+                    }
+                }catch (e:Exception){
                     handler.sendEmptyMessage(1002)
                 }
             }

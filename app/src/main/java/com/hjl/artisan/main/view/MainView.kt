@@ -59,7 +59,7 @@ class MainView : BaseMVPActivity<IMainView, MainPresenter>(), IMainView {
                     isExit = false
                 }
             }
-            timer!!.schedule(timerTask, 2000)
+            timer?.schedule(timerTask, 2000)
         }
     }
 

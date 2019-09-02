@@ -34,12 +34,12 @@ public class EdModelAdapter extends BaseRecyclerAdapter<ModuleViewBean> {
             EdModelViewHolder moduleViewHolder= (EdModelViewHolder) holder;
             //关闭视图复用，防止edit混乱
 //            moduleViewHolder.setIsRecyclable(false);
-            moduleViewHolder.tv.setText(getList().get(position).getTitle());
+            moduleViewHolder.getTv().setText(getList().get(position).getTitle());
             if(getList().get(position).getIndex()!=null){
-                moduleViewHolder.ed.setText(getList().get(position).getIndex().toString());
+                moduleViewHolder.getEd().setText(getList().get(position).getIndex().toString());
             }
             if(getList().get(position).getIndex()!=null){
-                moduleViewHolder.ed.setText(getList().get(position).getIndex().toString());
+                moduleViewHolder.getEd().setText(getList().get(position).getIndex().toString());
             }
             TextWatcher textWatcher=new TextWatcher() {
                 @Override
@@ -54,12 +54,12 @@ public class EdModelAdapter extends BaseRecyclerAdapter<ModuleViewBean> {
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                    if(CommonUtil.isNull(moduleViewHolder.ed.getText().toString()))
+                    if(CommonUtil.isNull(moduleViewHolder.getEd().getText().toString()))
                         getList().get(position).setIndex(null);
-                    else getList().get(position).setIndex(moduleViewHolder.ed.getText().toString());
+                    else getList().get(position).setIndex(moduleViewHolder.getEd().getText().toString());
                 }
             };
-            moduleViewHolder.ed.addTextChangedListener(textWatcher);
+            moduleViewHolder.getEd().addTextChangedListener(textWatcher);
         }
     }
 }
