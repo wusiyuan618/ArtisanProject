@@ -1,4 +1,4 @@
-package com.hjl.artisan.me.presenter
+package com.hjl.artisan.me.presenter.message
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -6,19 +6,18 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.gohome.pad.data.net.http.UrlForOkhttp
 import com.hjl.artisan.R
 import com.hjl.artisan.me.bean.MessageExceptionBean
-import com.hjl.artisan.me.view.MessageExceptionViewHolder
+import com.hjl.artisan.me.view.message.MessageExceptionViewHolder
 import com.wusy.wusylibrary.base.BaseRecyclerAdapter
 import com.wusy.wusylibrary.util.ImageLoaderUtil
 
 class MessageExceptionAdapter(context: Context) : BaseRecyclerAdapter<MessageExceptionBean.DataBean.RowsBean>(context){
-    lateinit var onBtnClickListener:OnBtnClickListener
+    lateinit var onBtnClickListener: OnBtnClickListener
 
     override fun onMyCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
         return MessageExceptionViewHolder(
@@ -94,7 +93,7 @@ class MessageExceptionAdapter(context: Context) : BaseRecyclerAdapter<MessageExc
         return ll
     }
     interface OnBtnClickListener{
-        fun clickOk(bean:MessageExceptionBean.DataBean.RowsBean,holder:MessageExceptionViewHolder,llKnow:LinearLayout)
+        fun clickOk(bean:MessageExceptionBean.DataBean.RowsBean, holder: MessageExceptionViewHolder, llKnow:LinearLayout)
     }
 
 

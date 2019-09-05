@@ -1,7 +1,6 @@
-package com.hjl.artisan.me.view
+package com.hjl.artisan.me.view.message
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Handler
 import android.os.Message
 import android.support.v7.widget.LinearLayoutManager
@@ -13,13 +12,13 @@ import com.hjl.artisan.login.bean.LoginBean
 import com.hjl.artisan.me.bean.MessageBean
 import com.hjl.artisan.me.bean.MessageCountBean
 import com.hjl.artisan.me.modle.MessageModel
-import com.hjl.artisan.me.presenter.MessageAdapter
+import com.hjl.artisan.me.presenter.message.MessageAdapter
 import com.wusy.wusylibrary.base.BaseActivity
 import com.wusy.wusylibrary.base.BaseRecyclerAdapter
 import kotlinx.android.synthetic.main.activity_msg.*
 
 class MessageActivity :BaseActivity(){
-    lateinit var adapter:MessageAdapter
+    lateinit var adapter: MessageAdapter
     lateinit var model:MessageModel
     lateinit var loginBean:LoginBean
     override fun findView() {
@@ -30,7 +29,7 @@ class MessageActivity :BaseActivity(){
             .showBackButton(true,this)
             .build()
         model= MessageModel()
-        adapter=MessageAdapter(this)
+        adapter= MessageAdapter(this)
         adapter.setOnRecyclerItemClickLitener(object:BaseRecyclerAdapter.onRecyclerItemClickLitener{
             override fun onRecyclerItemLongClick(view: RecyclerView.ViewHolder?, position: Int) {
             }
@@ -69,21 +68,21 @@ class MessageActivity :BaseActivity(){
                     list.add(MessageBean().apply {
                         this.title="申请"
                         this.icon= R.mipmap.icon_apply
-                        this.toClass=MessageApplyActivity::class.java
+                        this.toClass= MessageApplyActivity::class.java
                         this.waitDealCount=bean.data?.applyDealCount?:0
                         this.notRedCount=bean.data?.applyCount?:0
                     })
                     list.add(MessageBean().apply {
                         this.title="异常考勤"
                         this.icon= R.mipmap.icon_abnormal
-                        this.toClass=MessageExceptionActivity::class.java
+                        this.toClass= MessageExceptionActivity::class.java
                         this.waitDealCount=bean.data?.exceptionDealCount?:0
                         this.notRedCount=bean.data?.exceptionCount?:0
                     })
                     list.add(MessageBean().apply {
                         this.title="考勤提醒"
                         this.icon= R.mipmap.icon_remind
-                        this.toClass=MessageNotSignActivity::class.java
+                        this.toClass= MessageNotSignActivity::class.java
                         this.waitDealCount=0
                         this.notRedCount=bean.data?.notSignCount?:0
                     })

@@ -1,4 +1,4 @@
-package com.hjl.artisan.me.view
+package com.hjl.artisan.me.view.message
 
 import android.support.v7.widget.RecyclerView
 import android.view.View

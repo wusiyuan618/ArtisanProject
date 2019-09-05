@@ -1,13 +1,28 @@
 package com.hjl.artisan.tool.view.ActualMeasurement
 
+import android.annotation.SuppressLint
+import android.annotation.TargetApi
+import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothDevice
+import android.bluetooth.le.BluetoothLeScanner
+import android.bluetooth.le.ScanCallback
+import android.bluetooth.le.ScanResult
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.ViewGroup
+import android.widget.EditText
 import com.hjl.artisan.R
 import com.hjl.artisan.app.Contants
+import com.hjl.artisan.service.RulerService
 import com.hjl.artisan.tool.bean.ActualMeasurement.ActualMeasurementCheckPointBean
+import com.hjl.artisan.tool.bean.ActualMeasurement.BleDev
 import com.hjl.artisan.tool.presenter.ActualMeasurement.EdModelAdapter
 import com.wusy.wusylibrary.base.BaseActivity
 import com.wusy.wusylibrary.util.CommonUtil
@@ -15,6 +30,8 @@ import com.wusy.wusylibrary.view.FullyLinearLayoutManager
 import com.wusy.wusylibrary.view.moduleComponents.ModuleView
 import com.wusy.wusylibrary.view.moduleComponents.ModuleViewBean
 import kotlinx.android.synthetic.main.activity_actualmeasurement_end.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ActualMeasurementEndActivity : BaseActivity() {
     var modules: ArrayList<ModuleView> = ArrayList()
@@ -22,6 +39,19 @@ class ActualMeasurementEndActivity : BaseActivity() {
         null
     private var qualifiedCount = 0.0f
     private var measureCount = 0.0f
+
+    private lateinit var bradcast:EndBradCast
+
+    companion object {
+        var currentEditText:EditText?=null
+        var editTextList=ArrayList<EditText>()
+        var currentIndext=0
+    }
+    init {
+        currentEditText=null
+        editTextList= ArrayList()
+        currentIndext=0
+    }
     override fun getContentViewId(): Int {
         return R.layout.activity_actualmeasurement_end
     }
@@ -77,7 +107,7 @@ class ActualMeasurementEndActivity : BaseActivity() {
             var qualifiendProbability = 0.0f
             if (measureCount != 0.0f) {
                 qualifiendProbability = qualifiedCount / measureCount
-            }else{
+            } else {
                 qualifiendProbability = -1f
             }
             bundle.putFloat("qualifiendProbability", qualifiendProbability)
@@ -85,6 +115,12 @@ class ActualMeasurementEndActivity : BaseActivity() {
             setResult(RESULT_OK, intent)
             finish()
         }
+        bradcast=EndBradCast()
+        var actions=ArrayList<String>()
+        actions.add(RulerService.CONNECTED)
+        actions.add(RulerService.FAILURE)
+        actions.add(RulerService.READNOTICEMSG)
+        addBroadcastAction(actions,bradcast)
     }
 
     private fun createView(data: ActualMeasurementCheckPointBean.DataBean.RoomListBeanX.MeasurementsBean.ArticleListBean.ItemListBean.ModelListBean) {
@@ -102,6 +138,7 @@ class ActualMeasurementEndActivity : BaseActivity() {
                 list.add(bean)
 
             }
+            Log.i("wsy",list.size.toString())
             modelView.setTitle(room.name, Color.BLACK)
                 .isShowTitle(true)
                 .showRecycelerView(
@@ -111,6 +148,11 @@ class ActualMeasurementEndActivity : BaseActivity() {
             modules.add(modelView)
         }
     }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
+
+
 
     private fun findMeasureBeanById(
         flooerId: String,
@@ -146,5 +188,51 @@ class ActualMeasurementEndActivity : BaseActivity() {
             }
         }
         return null
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+    var lastTime=System.currentTimeMillis()
+    inner class EndBradCast:BroadcastReceiver(){
+        override fun onReceive(context: Context?, intent: Intent?) {
+            when(intent?.action?:""){
+                RulerService.CONNECTED->{
+                    showToast(intent?.getStringExtra("data"))
+                }
+                RulerService.FAILURE->{
+                    showToast(intent?.getStringExtra("data"))
+                }
+                RulerService.READNOTICEMSG->{
+                    var currentTime=System.currentTimeMillis()
+                    if(currentTime-lastTime>1000){
+                        lastTime=currentTime
+                        var dataStr=intent?.getStringExtra("data")
+                        if (dataStr != null) {
+                            writeToEidtText(dataStr.substring(4,7).toInt().toString())
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+    fun writeToEidtText(text:String){
+        if(currentEditText!=null){
+            currentEditText!!.setText(text)
+            if(currentIndext< editTextList.size-1){
+                currentIndext++
+                currentEditText= editTextList[currentIndext]
+                currentEditText!!.requestFocus()
+            }else{
+                showToast("该房间录入完成")
+            }
+        }else{
+            if(editTextList.size>0){
+                currentEditText= editTextList[0]
+                currentEditText!!.requestFocus()
+                writeToEidtText(text)
+            }
+        }
     }
 }

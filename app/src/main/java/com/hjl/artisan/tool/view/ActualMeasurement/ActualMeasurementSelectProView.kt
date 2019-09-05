@@ -101,7 +101,7 @@ class ActualMeasurementSelectProView : BaseActivity() {
             false
         }
     }
-    fun getProList(isClear:Boolean,isShowAnim:Boolean){
+    private fun getProList(isClear:Boolean, isShowAnim:Boolean){
         if(isClear){
             pageIndex=0
             adapter.list.clear()

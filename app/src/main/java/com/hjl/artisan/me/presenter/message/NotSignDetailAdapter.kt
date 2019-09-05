@@ -1,4 +1,4 @@
-package com.hjl.artisan.me.presenter
+package com.hjl.artisan.me.presenter.message
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.gohome.pad.data.net.http.UrlForOkhttp
 import com.hjl.artisan.R
 import com.hjl.artisan.me.bean.NotSignDetailBean
-import com.hjl.artisan.me.view.NotSignDetailViewHolder
+import com.hjl.artisan.me.view.message.NotSignDetailViewHolder
 import com.wusy.wusylibrary.base.BaseRecyclerAdapter
 import com.wusy.wusylibrary.util.ImageLoaderUtil
 

@@ -1,4 +1,4 @@
-package com.hjl.artisan.me.view
+package com.hjl.artisan.me.view.message
 
 import android.annotation.SuppressLint
 import android.os.Handler
@@ -13,13 +13,13 @@ import com.hjl.artisan.app.Contants
 import com.hjl.artisan.login.bean.LoginBean
 import com.hjl.artisan.me.bean.MessageExceptionBean
 import com.hjl.artisan.me.modle.MessageModel
-import com.hjl.artisan.me.presenter.MessageExceptionAdapter
+import com.hjl.artisan.me.presenter.message.MessageExceptionAdapter
 import com.wusy.wusylibrary.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_msg_apply.*
 
 class MessageExceptionActivity :BaseActivity(){
     lateinit var model: MessageModel
-    lateinit var adapter:MessageExceptionAdapter
+    lateinit var adapter: MessageExceptionAdapter
     var pageIndex=0
     override fun findView() {
 
@@ -48,8 +48,8 @@ class MessageExceptionActivity :BaseActivity(){
                 loginBean.data?.list!![0].employee?.comId?:"","exception")
         }
         refreshLayout.autoRefresh()
-        adapter.onBtnClickListener=object:MessageExceptionAdapter.OnBtnClickListener{
-            override fun clickOk(bean: MessageExceptionBean.DataBean.RowsBean, holder: MessageExceptionViewHolder,llKnow: LinearLayout) {
+        adapter.onBtnClickListener=object: MessageExceptionAdapter.OnBtnClickListener{
+            override fun clickOk(bean: MessageExceptionBean.DataBean.RowsBean, holder: MessageExceptionViewHolder, llKnow: LinearLayout) {
                 llKnow.visibility=View.GONE
                 holder.llStatusPass.visibility=View.VISIBLE
                 model.requestUpdateDealStatus(handlerRequest,bean.id?:"")

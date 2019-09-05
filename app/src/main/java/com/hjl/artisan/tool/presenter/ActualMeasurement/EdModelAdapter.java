@@ -4,17 +4,21 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import com.hjl.artisan.R;
+import com.hjl.artisan.app.Contants;
+import com.hjl.artisan.tool.view.ActualMeasurement.ActualMeasurementEndActivity;
 import com.hjl.artisan.tool.view.ActualMeasurement.EdModelViewHolder;
 import com.wusy.wusylibrary.base.BaseRecyclerAdapter;
 import com.wusy.wusylibrary.util.CommonUtil;
 import com.wusy.wusylibrary.view.moduleComponents.ModuleViewBean;
 
 public class EdModelAdapter extends BaseRecyclerAdapter<ModuleViewBean> {
-
+    private int bingIndex=0;
     private static final String TAG = "ModuleViewAdapter";
 
     public EdModelAdapter(Context context) {
@@ -31,9 +35,8 @@ public class EdModelAdapter extends BaseRecyclerAdapter<ModuleViewBean> {
     @Override
     public void onMyBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if(holder instanceof EdModelViewHolder){
+            bingIndex++;
             EdModelViewHolder moduleViewHolder= (EdModelViewHolder) holder;
-            //关闭视图复用，防止edit混乱
-//            moduleViewHolder.setIsRecyclable(false);
             moduleViewHolder.getTv().setText(getList().get(position).getTitle());
             if(getList().get(position).getIndex()!=null){
                 moduleViewHolder.getEd().setText(getList().get(position).getIndex().toString());
@@ -60,6 +63,19 @@ public class EdModelAdapter extends BaseRecyclerAdapter<ModuleViewBean> {
                 }
             };
             moduleViewHolder.getEd().addTextChangedListener(textWatcher);
+            if(bingIndex<=getList().size()){
+                ActualMeasurementEndActivity.Companion.getEditTextList().add(moduleViewHolder.getEd());
+                moduleViewHolder.getEd().setOnFocusChangeListener((v, hasFocus) -> {
+                    if(hasFocus){
+                        ActualMeasurementEndActivity.Companion.setCurrentEditText(moduleViewHolder.getEd());
+                        for (int i=0;i< ActualMeasurementEndActivity.Companion.getEditTextList().size();i++){
+                            if(moduleViewHolder.getEd()==ActualMeasurementEndActivity.Companion.getEditTextList().get(i)){
+                                ActualMeasurementEndActivity.Companion.setCurrentIndext(i);
+                            }
+                        }
+                    }
+                });
+            }
         }
     }
 }

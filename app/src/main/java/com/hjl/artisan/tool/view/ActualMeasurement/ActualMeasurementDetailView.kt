@@ -1,6 +1,14 @@
 package com.hjl.artisan.tool.view.ActualMeasurement
 
+import android.annotation.TargetApi
+import android.bluetooth.BluetoothAdapter
+import android.bluetooth.le.BluetoothLeScanner
+import android.bluetooth.le.ScanCallback
+import android.bluetooth.le.ScanResult
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.view.View
 import android.widget.TextView
 import cc.fussen.cache.Cache
@@ -10,7 +18,9 @@ import com.wusy.wusylibrary.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_actualmeasurements_detail.*
 import com.hjl.artisan.R
 import com.hjl.artisan.login.bean.LoginBean
+import com.hjl.artisan.service.RulerService
 import com.hjl.artisan.tool.bean.ActualMeasurement.ActuralMeasurementTableBean
+import com.hjl.artisan.tool.bean.ActualMeasurement.BleDev
 import com.wusy.wusylibrary.util.CommonUtil
 import com.wusy.wusylibrary.util.ImageLoaderUtil
 import java.text.SimpleDateFormat
@@ -27,6 +37,8 @@ class ActualMeasurementDetailView : BaseActivity() {
     private lateinit var selectBuild: ActuralMeasurementTableBean.DataBean.RowsBean.FloorLinkListBean
     private var selectStartFlooer=0
     private var selectEndFlooer=0
+
+
     override fun getContentViewId(): Int {
         return R.layout.activity_actualmeasurements_detail
     }
@@ -68,6 +80,8 @@ class ActualMeasurementDetailView : BaseActivity() {
             bundle.putSerializable("selectBean",selectBuild)
             navigateTo(ActualMeasurementCheckPointActvity::class.java,bundle)
         }
+        rulerService = Intent(this@ActualMeasurementDetailView, RulerService::class.java)
+        scanBle()
     }
 
     private fun initTitle() {
@@ -177,5 +191,46 @@ class ActualMeasurementDetailView : BaseActivity() {
         wheel.setCurtain(true)
         wheel.setAtmospheric(true)
         wheel.isCurved = true
+    }
+
+    private lateinit var bluetoothLeScanner: BluetoothLeScanner
+    private var isSearchDev = false
+    private lateinit var rulerService: Intent
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun scanBle() {
+        val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+        bluetoothLeScanner = bluetoothAdapter.bluetoothLeScanner
+        // Android5.0新增的扫描API，扫描返回的结果更友好，比如BLE广播数据以前是byte[] scanRecord，而新API帮我们解析成ScanRecord类
+        bluetoothLeScanner.startScan(mScanCallback)
+        Thread(Runnable {
+            Thread.sleep(5000)
+            bluetoothLeScanner.stopScan(mScanCallback) //停止扫描
+            if (!isSearchDev) {
+                runOnUiThread {
+                    showToast("未能找到智能量尺")
+                }
+            }
+        }).start()
+    }
+    private val mScanCallback = @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    object : ScanCallback() {
+        // 扫描Callback
+        @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+        override fun onScanResult(callbackType: Int, result: ScanResult) {
+            val dev = BleDev(result.device, result)
+//            Log.i("wsy", "查到了DEV" + dev.dev.name)
+            if (dev.dev.name == RulerService.DEVNAME) {
+                rulerService.putExtra("dev", dev.dev)
+                startService(rulerService)
+                isSearchDev=true
+                bluetoothLeScanner.stopScan(this) //停止扫描
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        stopService(rulerService)
     }
 }

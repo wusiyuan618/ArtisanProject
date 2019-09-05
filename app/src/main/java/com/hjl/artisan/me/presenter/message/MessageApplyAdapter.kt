@@ -1,20 +1,19 @@
-package com.hjl.artisan.me.presenter
+package com.hjl.artisan.me.presenter.message
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.gohome.pad.data.net.http.UrlForOkhttp
 import com.hjl.artisan.R
 import com.hjl.artisan.me.bean.MessageApplyBean
-import com.hjl.artisan.me.view.MessageApplyViewHolder
+import com.hjl.artisan.me.view.message.MessageApplyViewHolder
 import com.wusy.wusylibrary.base.BaseRecyclerAdapter
 import com.wusy.wusylibrary.util.ImageLoaderUtil
 
 class MessageApplyAdapter(context: Context) :BaseRecyclerAdapter<MessageApplyBean.DataBean.RowsBean>(context){
-    lateinit var onBtnClickListener:OnBtnClickListener
+    lateinit var onBtnClickListener: OnBtnClickListener
     override fun onMyCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
         return MessageApplyViewHolder(
             LayoutInflater.from(context)
@@ -57,8 +56,8 @@ class MessageApplyAdapter(context: Context) :BaseRecyclerAdapter<MessageApplyBea
     }
 
     interface OnBtnClickListener{
-        fun clickOk(bean:MessageApplyBean.DataBean.RowsBean,holder:MessageApplyViewHolder)
-        fun clickCancel(bean:MessageApplyBean.DataBean.RowsBean,holder:MessageApplyViewHolder)
+        fun clickOk(bean:MessageApplyBean.DataBean.RowsBean,holder: MessageApplyViewHolder)
+        fun clickCancel(bean:MessageApplyBean.DataBean.RowsBean,holder: MessageApplyViewHolder)
     }
 
 }

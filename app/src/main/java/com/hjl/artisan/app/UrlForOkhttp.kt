@@ -34,7 +34,7 @@ object UrlForOkhttp {
      * 获取实测实量报告预警数量
      */
     fun getActualMeasurementsReportCount(employeeId:String,employeeType:String,comId:String,programId:String):String{
-        return "${baseUrl}cgProgramApi/actualMeasurementsReport/getCountGroupByLevel?" +
+        return "${baseUrl}cgProgramApi/actualMeasurementsReportGroup/getCountGroupByLevel?" +
                 "employeeId=$employeeId&employeeType=$employeeType&comId=$comId&programId=$programId$comParam"
     }
     /**
@@ -150,5 +150,24 @@ object UrlForOkhttp {
     fun requestSubmitCheckPoint():String{
         return "${baseUrl}cgProgramApi/actualMeasurementsReportGroup/addOrUpdateList?$comParam"
     }
-
+    /**
+     * 获取实测实量批次报告列表
+     */
+    fun getActualMeasurementReportGroupPage(employeeId:String,pageIndex:Int,pageSize:Int,comId:String,programId:String,
+                                            programName:String,warningLevel:String):String{
+        var progarmNameStr=if(CommonUtil.isNull(programName)) "" else "&programName=$programName"
+        return "${baseUrl}cgProgramApi/actualMeasurementsReportGroup/getPage?" +
+                "employeeId=$employeeId&pageIndex=$pageIndex&comId=$comId&programId=$programId" +
+                "&warningLevel=$warningLevel&queryCount=true&needRecheck=2&pageSize=$pageSize$progarmNameStr$comParam"
+    }
+    fun getActualMeasurementCountGroupByLevel(employeeId:String,comId:String,programId:String):String{
+        return "${baseUrl}cgProgramApi/actualMeasurementsReportGroup/getCountGroupByLevel?" +
+                "employeeId=$employeeId&comId=$comId&programId=$programId$comParam"
+    }
+    /**
+     * 获取撤防的详情
+     */
+    fun getInfoNeedRecheck(id:String):String{
+        return "${baseUrl}cgProgramApi/actualMeasurementsReportGroup/getInfoNeedRecheck?id=$id$comParam"
+    }
 }

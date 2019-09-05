@@ -78,7 +78,6 @@ class ActualMeasurementCheckPointActvity : BaseActivity() {
                 var index =
                     loginBean.data!!.user!!.id + selectBean.measurementsId!! + selectBean.buildingId!! +
                             selectBean.unitId!! + bundle.getInt("floorNumberStart") + bundle.getInt("floorNumberEnd")
-                Log.i("wsy","保存的标识$index")
                 Cache.with(this)
                     .path(cacheDir.path)
                     .saveCache(index, Contants.mAcualMeasurementBean)

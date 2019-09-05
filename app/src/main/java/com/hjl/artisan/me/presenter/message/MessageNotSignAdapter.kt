@@ -1,4 +1,4 @@
-package com.hjl.artisan.me.presenter
+package com.hjl.artisan.me.presenter.message
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.hjl.artisan.R
 import com.hjl.artisan.me.bean.MessageNotSignBean
-import com.hjl.artisan.me.view.MessageNotSignViewHolder
+import com.hjl.artisan.me.view.message.MessageNotSignViewHolder
 import com.wusy.wusylibrary.base.BaseRecyclerAdapter
 
 class MessageNotSignAdapter(context:Context) :BaseRecyclerAdapter<MessageNotSignBean.DataBean.RowsBean>(context){

@@ -6,7 +6,6 @@ import android.graphics.Bitmap
 import android.os.Handler
 import android.os.Message
 import android.support.v7.app.AlertDialog
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
@@ -17,15 +16,14 @@ import com.hjl.artisan.R
 import com.hjl.artisan.app.Contants
 import com.hjl.artisan.login.bean.LoginBean
 import com.hjl.artisan.login.view.LoginView
-import com.hjl.artisan.me.bean.MessageBean
 import com.hjl.artisan.me.bean.MessageCountBean
 import com.hjl.artisan.me.modle.MessageModel
 import com.hjl.artisan.me.presenter.MePresenter
+import com.hjl.artisan.me.view.message.MessageActivity
 import com.nostra13.universalimageloader.core.DisplayImageOptions
 import com.wusy.wusylibrary.base.BaseMVPFragment
 import com.wusy.wusylibrary.util.ImageLoaderUtil
 import com.wusy.wusylibrary.view.TitleView
-import org.w3c.dom.Text
 
 class MeView : BaseMVPFragment<IMeView, MePresenter>(), IMeView{
     lateinit var loginBean:LoginBean

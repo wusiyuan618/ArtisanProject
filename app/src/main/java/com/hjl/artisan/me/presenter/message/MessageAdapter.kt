@@ -1,14 +1,13 @@
-package com.hjl.artisan.me.presenter
+package com.hjl.artisan.me.presenter.message
 
 import android.content.Context
-import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.hjl.artisan.R
 import com.hjl.artisan.me.bean.MessageBean
-import com.hjl.artisan.me.view.MessageViewHolder
+import com.hjl.artisan.me.view.message.MessageViewHolder
 import com.wusy.wusylibrary.base.BaseRecyclerAdapter
 
 class MessageAdapter(context:Context):BaseRecyclerAdapter<MessageBean>(context){

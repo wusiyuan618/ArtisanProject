@@ -27,7 +27,6 @@ class ActualMeasurementCheckPointModel(context:Context){
         val bean= Cache.with(mC)
             .path(mC.cacheDir.path)
             .getCache(index, ActualMeasurementCheckPointBean::class.java)
-        Log.i("wsy","获取的标识$index")
         if(bean!=null){
             val dialog: AlertDialog = AlertDialog.Builder(mC)
                 .setMessage("检查到上次测量的信息，是否使用？")
@@ -74,7 +73,6 @@ class ActualMeasurementCheckPointModel(context:Context){
                 joNow.put("status","0")
                 joNow.put("msg","成功")
                 joNow.put("data",flooers)
-                Log.i("wsy",joNow.toString())
                 val bean=Gson().fromJson(joNow.toString(),
                     ActualMeasurementCheckPointBean::class.java)
                 if(bean.status=="0")

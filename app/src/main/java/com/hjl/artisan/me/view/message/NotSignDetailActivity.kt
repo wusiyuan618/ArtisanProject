@@ -1,4 +1,4 @@
-package com.hjl.artisan.me.view
+package com.hjl.artisan.me.view.message
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -14,13 +14,13 @@ import com.hjl.artisan.app.Contants
 import com.hjl.artisan.login.bean.LoginBean
 import com.hjl.artisan.me.bean.NotSignDetailBean
 import com.hjl.artisan.me.modle.MessageModel
-import com.hjl.artisan.me.presenter.NotSignDetailAdapter
+import com.hjl.artisan.me.presenter.message.NotSignDetailAdapter
 import com.wusy.wusylibrary.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_notsigndetail.*
 
 class NotSignDetailActivity : BaseActivity(){
     lateinit var model: MessageModel
-    lateinit var adapter:NotSignDetailAdapter
+    lateinit var adapter: NotSignDetailAdapter
     var pageIndex=0
     var searchMsg=""
     override fun findView() {

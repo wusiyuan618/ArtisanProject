@@ -63,7 +63,6 @@ class ToolModel(handler:Handler) :IToolModel{
                 }
             }
         }
-        Log.i("wsy",list.size.toString())
         return list
     }
 

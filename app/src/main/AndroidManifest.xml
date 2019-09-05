@@ -3,6 +3,8 @@
           xmlns:tools="http://schemas.android.com/tools" package="com.hjl.artisan">
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -37,10 +39,12 @@
         <activity android:name=".tool.view.ActualMeasurement.ActualMeasurementCheckDetailActivity"/>
         <activity android:name=".tool.view.ActualMeasurement.ActualMeasurementEndActivity"/>
         <activity android:name=".me.view.UpdatePwdActivity"/>
-        <activity android:name=".me.view.MessageActivity"/>
-        <activity android:name=".me.view.MessageApplyActivity"/>
-        <activity android:name=".me.view.MessageNotSignActivity"/>
-        <activity android:name=".me.view.NotSignDetailActivity"/>
-        <activity android:name=".me.view.MessageExceptionActivity"/>
+        <activity android:name=".me.view.message.MessageActivity"/>
+        <activity android:name=".me.view.message.MessageApplyActivity"/>
+        <activity android:name=".me.view.message.MessageNotSignActivity"/>
+        <activity android:name=".me.view.message.NotSignDetailActivity"/>
+        <activity android:name=".me.view.message.MessageExceptionActivity"/>
+        <activity android:name=".home.view.ActualMeasurementSelectSalesProActivity"/>
+        <service android:name=".service.RulerService"/>
     </application>
 </manifest>

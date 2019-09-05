@@ -2,6 +2,7 @@ package com.hjl.artisan.home.view
 
 import android.content.Context
 import android.view.View
+import android.widget.LinearLayout
 import cc.fussen.cache.Cache
 import com.hjl.artisan.R
 import com.hjl.artisan.home.bean.ActualMeasurementsReportCountBean
@@ -16,6 +17,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeView : BaseMVPFragment<IHomeView,HomePresenter>(),IHomeView{
     lateinit var titleView:TitleView
+    lateinit var scslLL:LinearLayout
     override fun hideLoading() {
         hideLoadImage()
     }
@@ -24,16 +26,13 @@ class HomeView : BaseMVPFragment<IHomeView,HomePresenter>(),IHomeView{
         scslRedCount.text=bean.data.seriousWarningCounts.toString()
         scslYellowCount.text=bean.data.warningCounts.toString()
         scslLL.setOnClickListener {
-
+            navigateTo(ActualMeasurementSelectSalesProActivity::class.java)
         }
     }
 
     override fun showView(bean: InspectionReportCountBean) {
         xcbRedCount.text=bean.data.seriousWarningCounts.toString()
         xcbYellowCount.text=bean.data.warningCounts.toString()
-        xcbLL.setOnClickListener {
-
-        }
     }
 
     override fun showView(bean: ProgramAttendanceSummaryBean) {
@@ -82,6 +81,7 @@ class HomeView : BaseMVPFragment<IHomeView,HomePresenter>(),IHomeView{
 
     override fun findView(view: View?) {
         titleView=view!!.findViewById(R.id.titleView)
+        scslLL= view.findViewById(R.id.scslLL)
     }
 
     override fun getmContext(): Context? {

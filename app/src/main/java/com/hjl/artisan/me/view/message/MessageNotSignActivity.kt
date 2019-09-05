@@ -1,4 +1,4 @@
-package com.hjl.artisan.me.view
+package com.hjl.artisan.me.view.message
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -12,14 +12,14 @@ import com.hjl.artisan.app.Contants
 import com.hjl.artisan.login.bean.LoginBean
 import com.hjl.artisan.me.bean.MessageNotSignBean
 import com.hjl.artisan.me.modle.MessageModel
-import com.hjl.artisan.me.presenter.MessageNotSignAdapter
+import com.hjl.artisan.me.presenter.message.MessageNotSignAdapter
 import com.wusy.wusylibrary.base.BaseActivity
 import com.wusy.wusylibrary.base.BaseRecyclerAdapter
 import kotlinx.android.synthetic.main.activity_msg_apply.*
 
 class MessageNotSignActivity :BaseActivity(){
     lateinit var model: MessageModel
-    lateinit var adapter:MessageNotSignAdapter
+    lateinit var adapter: MessageNotSignAdapter
     var pageIndex=0
     override fun findView() {
 

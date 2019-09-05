@@ -1,4 +1,4 @@
-package com.hjl.artisan.me.view
+package com.hjl.artisan.me.view.message
 
 import android.annotation.SuppressLint
 import android.os.Handler
@@ -11,14 +11,14 @@ import com.hjl.artisan.app.Contants
 import com.hjl.artisan.login.bean.LoginBean
 import com.hjl.artisan.me.bean.MessageApplyBean
 import com.hjl.artisan.me.modle.MessageModel
-import com.hjl.artisan.me.presenter.MessageApplyAdapter
+import com.hjl.artisan.me.presenter.message.MessageApplyAdapter
 import com.wusy.wusylibrary.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_msg_apply.*
 
 class MessageApplyActivity:BaseActivity(){
     var pageIndex=0
     lateinit var model:MessageModel
-    lateinit var adapter:MessageApplyAdapter
+    lateinit var adapter: MessageApplyAdapter
     override fun findView() {
     }
 
@@ -32,7 +32,7 @@ class MessageApplyActivity:BaseActivity(){
         model= MessageModel()
 
         adapter= MessageApplyAdapter(this)
-        adapter.onBtnClickListener=object:MessageApplyAdapter.OnBtnClickListener{
+        adapter.onBtnClickListener=object: MessageApplyAdapter.OnBtnClickListener{
             override fun clickCancel(bean: MessageApplyBean.DataBean.RowsBean,holder: MessageApplyViewHolder) {
                 holder.llBtn.visibility= View.GONE
                 holder.llStatusIgnore.visibility=View.VISIBLE
