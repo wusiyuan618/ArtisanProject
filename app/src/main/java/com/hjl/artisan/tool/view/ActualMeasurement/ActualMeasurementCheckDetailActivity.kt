@@ -1,11 +1,16 @@
 package com.hjl.artisan.tool.view.ActualMeasurement
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ListView
 import com.hjl.artisan.R
 import com.hjl.artisan.app.Contants
+import com.hjl.artisan.service.BlueBLEUtil
+import com.hjl.artisan.service.RulerService
 import com.hjl.artisan.tool.bean.ActualMeasurement.ActualMeasurementCheckPointBean
 import com.hjl.artisan.tool.bean.ActualMeasurement.CheckPointTreeBean
 import com.hjl.artisan.tool.presenter.ActualMeasurement.CheckPointTreeListViewAdapter
@@ -21,6 +26,9 @@ class ActualMeasurementCheckDetailActivity : BaseActivity() {
     var flooerId = ""
     var data: ActualMeasurementCheckPointBean.DataBean.RoomListBeanX.MeasurementsBean? = null
     var roomId = ""
+    private lateinit var bradcast: CheckDetailBradCast
+    private lateinit var blueBLEUtil: BlueBLEUtil
+
     override fun findView() {
     }
 
@@ -30,6 +38,7 @@ class ActualMeasurementCheckDetailActivity : BaseActivity() {
                 toFinish()
             }
             .build()
+        blueBLEUtil=BlueBLEUtil(this)
         btnSubmit.visibility = View.GONE
         tvNavigate.text = intent.extras.getString("navigate")
         flooerId = intent.extras.getString("flooerId")
@@ -37,6 +46,10 @@ class ActualMeasurementCheckDetailActivity : BaseActivity() {
         data = findMeasureBeanById(flooerId, roomId)
         if (data != null)
             createTreeList(data!!)
+        bradcast=CheckDetailBradCast()
+        var actions=ArrayList<String>()
+        actions.add(RulerService.FAILURE)
+        addBroadcastAction(actions,bradcast)
     }
 
     private fun createTreeList(data: ActualMeasurementCheckPointBean.DataBean.RoomListBeanX.MeasurementsBean) {
@@ -216,5 +229,15 @@ class ActualMeasurementCheckDetailActivity : BaseActivity() {
             }
         }
         return null
+    }
+    inner class CheckDetailBradCast: BroadcastReceiver(){
+        override fun onReceive(context: Context?, intent: Intent?) {
+            when(intent?.action?:""){
+                RulerService.FAILURE->{
+                    showToast(intent?.getStringExtra("data"))
+                    blueBLEUtil.reConnect()
+                }
+            }
+        }
     }
 }

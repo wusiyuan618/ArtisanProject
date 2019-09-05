@@ -2,8 +2,10 @@ package com.hjl.artisan.service;
 
 import android.app.Service;
 import android.bluetooth.*;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.IBinder;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 
@@ -32,6 +34,7 @@ public class RulerService extends Service {
      *  定义广播
      */
     public static final String CONNECTED="RULERSERVICEBROADCASTCONNECTED";
+    public static final String CONNECTING="RULERSERVICEBROADCASTCONNECTING";
     public static final String FAILURE="RULERSERVICEBROADCASTFAILURE";
     public static final String READNOTICEMSG="RULERSERVICEBROADCASTREADNOTICEMSG";
     public static final String WRITECH="RULERSERVICEBROADCASTWRITECH";
@@ -85,14 +88,14 @@ public class RulerService extends Service {
             if(status==0){
                 if(newState==2){
                   intent.setAction(CONNECTED);
-                  intent.putExtra("data","连接成功");
+                  intent.putExtra("data","靠尺设备连接成功");
                 }else{
                     intent.setAction(FAILURE);
-                    intent.putExtra("data","连接断开");
+                    intent.putExtra("data","靠尺设备连接断开");
                 }
             }else{
                 intent.setAction(FAILURE);
-                intent.putExtra("data","连接出错,错误码:" + status);
+                intent.putExtra("data","靠尺设备连接断开");
             }
             sendBroadcast(intent);
             Log.i(TAG, String.format(status == 0 ? (newState == 2 ? "与[%s]连接成功" : "与[%s]连接断开") : ("与[%s]连接出错,错误码:" + status), dev));

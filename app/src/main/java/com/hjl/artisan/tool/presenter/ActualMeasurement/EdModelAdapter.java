@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import com.hjl.artisan.R;
 import com.hjl.artisan.app.Contants;
+import com.hjl.artisan.tool.bean.ActualMeasurement.EditAndRulerBean;
 import com.hjl.artisan.tool.view.ActualMeasurement.ActualMeasurementEndActivity;
 import com.hjl.artisan.tool.view.ActualMeasurement.EdModelViewHolder;
 import com.wusy.wusylibrary.base.BaseRecyclerAdapter;
@@ -20,7 +21,7 @@ import com.wusy.wusylibrary.view.moduleComponents.ModuleViewBean;
 public class EdModelAdapter extends BaseRecyclerAdapter<ModuleViewBean> {
     private int bingIndex=0;
     private static final String TAG = "ModuleViewAdapter";
-
+    public String roomName="";
     public EdModelAdapter(Context context) {
         super(context);
     }
@@ -64,12 +65,16 @@ public class EdModelAdapter extends BaseRecyclerAdapter<ModuleViewBean> {
             };
             moduleViewHolder.getEd().addTextChangedListener(textWatcher);
             if(bingIndex<=getList().size()){
-                ActualMeasurementEndActivity.Companion.getEditTextList().add(moduleViewHolder.getEd());
+                EditAndRulerBean bean=new EditAndRulerBean();
+                bean.setEditText(moduleViewHolder.getEd());
+                bean.setRoomName(roomName);
+                if(bingIndex==getList().size()) bean.setEnd(true);
+                ActualMeasurementEndActivity.Companion.getEditTextList().add(bean);
                 moduleViewHolder.getEd().setOnFocusChangeListener((v, hasFocus) -> {
                     if(hasFocus){
                         ActualMeasurementEndActivity.Companion.setCurrentEditText(moduleViewHolder.getEd());
                         for (int i=0;i< ActualMeasurementEndActivity.Companion.getEditTextList().size();i++){
-                            if(moduleViewHolder.getEd()==ActualMeasurementEndActivity.Companion.getEditTextList().get(i)){
+                            if(moduleViewHolder.getEd()==ActualMeasurementEndActivity.Companion.getEditTextList().get(i).getEditText()){
                                 ActualMeasurementEndActivity.Companion.setCurrentIndext(i);
                             }
                         }
@@ -77,5 +82,13 @@ public class EdModelAdapter extends BaseRecyclerAdapter<ModuleViewBean> {
                 });
             }
         }
+    }
+
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
     }
 }

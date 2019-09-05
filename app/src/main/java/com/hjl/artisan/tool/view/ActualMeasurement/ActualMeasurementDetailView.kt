@@ -5,10 +5,13 @@ import android.bluetooth.BluetoothAdapter
 import android.bluetooth.le.BluetoothLeScanner
 import android.bluetooth.le.ScanCallback
 import android.bluetooth.le.ScanResult
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.RequiresApi
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import cc.fussen.cache.Cache
@@ -18,6 +21,7 @@ import com.wusy.wusylibrary.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_actualmeasurements_detail.*
 import com.hjl.artisan.R
 import com.hjl.artisan.login.bean.LoginBean
+import com.hjl.artisan.service.BlueBLEUtil
 import com.hjl.artisan.service.RulerService
 import com.hjl.artisan.tool.bean.ActualMeasurement.ActuralMeasurementTableBean
 import com.hjl.artisan.tool.bean.ActualMeasurement.BleDev
@@ -37,7 +41,8 @@ class ActualMeasurementDetailView : BaseActivity() {
     private lateinit var selectBuild: ActuralMeasurementTableBean.DataBean.RowsBean.FloorLinkListBean
     private var selectStartFlooer=0
     private var selectEndFlooer=0
-
+    private lateinit var bradcast: DetailBradCast
+    private lateinit var blueBleUtil:BlueBLEUtil
 
     override fun getContentViewId(): Int {
         return R.layout.activity_actualmeasurements_detail
@@ -80,8 +85,14 @@ class ActualMeasurementDetailView : BaseActivity() {
             bundle.putSerializable("selectBean",selectBuild)
             navigateTo(ActualMeasurementCheckPointActvity::class.java,bundle)
         }
-        rulerService = Intent(this@ActualMeasurementDetailView, RulerService::class.java)
-        scanBle()
+        bradcast=DetailBradCast()
+        var actions=ArrayList<String>()
+        actions.add(RulerService.CONNECTED)
+        actions.add(RulerService.FAILURE)
+        actions.add(RulerService.CONNECTING)
+        addBroadcastAction(actions,bradcast)
+        blueBleUtil=BlueBLEUtil(this)
+        blueBleUtil.scanBle()
     }
 
     private fun initTitle() {
@@ -193,44 +204,29 @@ class ActualMeasurementDetailView : BaseActivity() {
         wheel.isCurved = true
     }
 
-    private lateinit var bluetoothLeScanner: BluetoothLeScanner
-    private var isSearchDev = false
-    private lateinit var rulerService: Intent
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private fun scanBle() {
-        val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
-        bluetoothLeScanner = bluetoothAdapter.bluetoothLeScanner
-        // Android5.0新增的扫描API，扫描返回的结果更友好，比如BLE广播数据以前是byte[] scanRecord，而新API帮我们解析成ScanRecord类
-        bluetoothLeScanner.startScan(mScanCallback)
-        Thread(Runnable {
-            Thread.sleep(5000)
-            bluetoothLeScanner.stopScan(mScanCallback) //停止扫描
-            if (!isSearchDev) {
-                runOnUiThread {
-                    showToast("未能找到智能量尺")
-                }
-            }
-        }).start()
-    }
-    private val mScanCallback = @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    object : ScanCallback() {
-        // 扫描Callback
-        @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-        override fun onScanResult(callbackType: Int, result: ScanResult) {
-            val dev = BleDev(result.device, result)
-//            Log.i("wsy", "查到了DEV" + dev.dev.name)
-            if (dev.dev.name == RulerService.DEVNAME) {
-                rulerService.putExtra("dev", dev.dev)
-                startService(rulerService)
-                isSearchDev=true
-                bluetoothLeScanner.stopScan(this) //停止扫描
-            }
-        }
-    }
 
     override fun onDestroy() {
         super.onDestroy()
-        stopService(rulerService)
+        blueBleUtil.stopBle()
+    }
+    inner class DetailBradCast: BroadcastReceiver(){
+        override fun onReceive(context: Context?, intent: Intent?) {
+            when(intent?.action?:""){
+                RulerService.CONNECTED->{
+                    showToast(intent?.getStringExtra("data"))
+                    ivConnect.setImageResource(R.mipmap.icon_blueteeth_ing)
+                    tvConnect.text="蓝牙连接成功"
+                }
+                RulerService.FAILURE->{
+                    blueBleUtil.reConnect()
+                    ivConnect.setImageResource(R.mipmap.icon_blueteeth_no)
+                    tvConnect.text="蓝牙连接失败"
+                }
+                RulerService.CONNECTING->{
+                    ivConnect.setImageResource(R.mipmap.icon_blueteeth_yes)
+                    tvConnect.text="蓝牙连接中..."
+                }
+            }
+        }
     }
 }

@@ -15,6 +15,8 @@ import com.wusy.wusylibrary.util.CommonUtil
 import com.wusy.wusylibrary.view.TitleView
 import kotlinx.android.synthetic.main.fragment_home.*
 
+
+
 class HomeView : BaseMVPFragment<IHomeView,HomePresenter>(),IHomeView{
     lateinit var titleView:TitleView
     lateinit var scslLL:LinearLayout

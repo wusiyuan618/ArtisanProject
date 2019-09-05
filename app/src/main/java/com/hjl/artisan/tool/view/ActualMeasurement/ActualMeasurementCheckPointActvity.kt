@@ -1,6 +1,8 @@
 package com.hjl.artisan.tool.view.ActualMeasurement
 
 import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -11,6 +13,8 @@ import cc.fussen.cache.Cache
 import com.hjl.artisan.R
 import com.hjl.artisan.app.Contants
 import com.hjl.artisan.login.bean.LoginBean
+import com.hjl.artisan.service.BlueBLEUtil
+import com.hjl.artisan.service.RulerService
 import com.hjl.artisan.tool.bean.ActualMeasurement.ActualMeasurementCheckPointBean
 import com.hjl.artisan.tool.bean.ActualMeasurement.ActuralMeasurementTableBean
 import com.hjl.artisan.tool.bean.ActualMeasurement.CheckPointReportBean
@@ -30,6 +34,8 @@ class ActualMeasurementCheckPointActvity : BaseActivity() {
     private val acRequestCode = 666
     private var currentNode: Node? = null
     private lateinit var bundle: Bundle
+    private lateinit var bradcast: CheckPointBradCast
+    private lateinit var blueBLEUtil: BlueBLEUtil
     override fun getContentViewId(): Int {
         return R.layout.activity_actualmeasurements_checkpoint
     }
@@ -43,6 +49,7 @@ class ActualMeasurementCheckPointActvity : BaseActivity() {
                 finishFun()
             }
             .build()
+        blueBLEUtil=BlueBLEUtil(this)
         loginBean = Cache.with(this)
             .path(cacheDir.path)
             .getCache("LoginBean", LoginBean::class.java)
@@ -64,6 +71,10 @@ class ActualMeasurementCheckPointActvity : BaseActivity() {
                 selectBean.unitId!!, bundle.getInt("floorNumberStart"), bundle.getInt("floorNumberEnd")
             )
         }
+        bradcast=CheckPointBradCast()
+        var actions=ArrayList<String>()
+        actions.add(RulerService.FAILURE)
+        addBroadcastAction(actions,bradcast)
     }
 
     override fun onBackPressed() {
@@ -308,5 +319,14 @@ class ActualMeasurementCheckPointActvity : BaseActivity() {
         }
         bean.reportList = reportList
         return bean
+    }
+    inner class CheckPointBradCast: BroadcastReceiver(){
+        override fun onReceive(context: Context?, intent: Intent?) {
+            when(intent?.action?:""){
+                RulerService.FAILURE->{
+                    blueBLEUtil.reConnect()
+                }
+            }
+        }
     }
 }
