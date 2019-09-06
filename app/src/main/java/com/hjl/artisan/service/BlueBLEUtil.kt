@@ -28,18 +28,32 @@ class BlueBLEUtil constructor(private val activity: Activity) {
         var intent=Intent(RulerService.CONNECTING)
         activity.sendBroadcast(intent)
         val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
-        bluetoothLeScanner = bluetoothAdapter.bluetoothLeScanner
-        // Android5.0新增的扫描API，扫描返回的结果更友好，比如BLE广播数据以前是byte[] scanRecord，而新API帮我们解析成ScanRecord类
-        bluetoothLeScanner.startScan(mScanCallback)
-        Thread(Runnable {
-            Thread.sleep(5000)
-            bluetoothLeScanner.stopScan(mScanCallback) //停止扫描
-            if (!isSearchDev) {
-                var intent=Intent(RulerService.FAILURE)
-                intent.putExtra("data","未能识别到靠尺设备")
-                activity.sendBroadcast(intent)
+        if (bluetoothAdapter == null) {//没有蓝牙驱动
+            var intent=Intent(RulerService.FAILURE)
+            intent.putExtra("data","本机没有找到蓝牙硬件或驱动！")
+            activity.sendBroadcast(intent)
+            return
+        } else {
+            if (!bluetoothAdapter.isEnabled) {//蓝牙没有开启
+                //直接开启蓝牙
+                bluetoothAdapter.enable()
+                reConnect()
+            }else{//蓝牙正常，开始扫描
+                bluetoothLeScanner = bluetoothAdapter.bluetoothLeScanner
+                // Android5.0新增的扫描API，扫描返回的结果更友好，比如BLE广播数据以前是byte[] scanRecord，而新API帮我们解析成ScanRecord类
+                bluetoothLeScanner.startScan(mScanCallback)
+                Thread(Runnable {
+                    Thread.sleep(5000)
+                    bluetoothLeScanner.stopScan(mScanCallback) //停止扫描
+                    if (!isSearchDev) {
+                        var intent=Intent(RulerService.FAILURE)
+                        intent.putExtra("data","未能识别到靠尺设备")
+                        activity.sendBroadcast(intent)
+                    }
+                }).start()
             }
-        }).start()
+        }
+
     }
     fun stopBle(){
         activity.stopService(rulerService)
