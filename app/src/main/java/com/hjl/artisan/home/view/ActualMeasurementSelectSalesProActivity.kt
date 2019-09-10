@@ -58,13 +58,13 @@ class ActualMeasurementSelectSalesProActivity:BaseActivity(){
         recyclerView.adapter=adapter
         refreshLayout.setOnRefreshListener {
             if(!CommonUtil.isNull(loginBean)){
-                getProList(true,false)
+                getProList(isClear = true, isShowAnim = false)
             }
         }
         refreshLayout.setOnLoadMoreListener {
             pageIndex++
             if(!CommonUtil.isNull(loginBean)){
-                getProList(false,false)
+                getProList(isClear = false, isShowAnim = false)
             }
         }
         refreshLayout.autoRefresh()

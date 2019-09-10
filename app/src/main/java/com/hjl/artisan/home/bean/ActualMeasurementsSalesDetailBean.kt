@@ -2,7 +2,7 @@ package com.hjl.artisan.home.bean
 
 import com.hjl.artisan.app.HJLBean
 
-class ActualMeasurementsSalesDetail :HJLBean(){
+class ActualMeasurementsSalesDetailBean :HJLBean(){
 
     /**
      * status : 0

@@ -14,7 +14,8 @@ class ActualMeasurementSelectSaleProAdapter(context: Context) :BaseRecyclerAdapt
         return SelectSalesProViewHolder(
             LayoutInflater.from(context)
                 .inflate(R.layout.item_saleselectpro, parent, false)
-        )    }
+        )
+    }
 
     override fun onMyBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         if(holder is SelectSalesProViewHolder) {
